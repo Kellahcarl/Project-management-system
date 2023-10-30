@@ -1,0 +1,49 @@
+.main{
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+   
+
+}
+.blue_background{
+    background-color: rgb(8, 160, 160);
+    width:  40vw;
+}
+.create_acc{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 40vw;
+}
+img{
+    width: 100px;
+}
+.form_input{
+    width: 30vw;
+    margin-left: 60px;
+    margin-top: 50px;
+    padding: 10px;
+    
+
+
+}
+#sign_in{
+    margin-left: 180px;
+}
+#input{
+    width: 250px;
+    height: 40px;
+    border: none;
+    background-color:rgb(229, 245, 245);
+    
+}
+#sign-up-btn{
+    width: 250px;
+    height: 40px;
+    border: none;
+    background-color:rgb(8, 160, 160);
+    
+
+}

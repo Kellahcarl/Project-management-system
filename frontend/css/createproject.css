@@ -1,0 +1,46 @@
+.main{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.project-list{
+    width: 20vw;
+    height: 100vh;
+    background-color: rgb(212, 231, 231);
+
+}
+.new-project{
+    width: 70vw;
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 30px;
+}
+.heading{
+    margin-left: 200px;
+}
+#create-name-input{
+    width: 70vw;
+    height: 30px;
+    margin-bottom: 20px;
+}
+#desc-input{
+    width: 70vw;
+    height: 120px;
+    background-color: rgb(248, 247, 247);
+    margin-bottom: 30px;
+}
+#dates{
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 50px;
+}
+#calenda{
+    width: 30vw;
+}
+#create-btn{
+
+    display: flex;
+    justify-content: flex-end;
+}
