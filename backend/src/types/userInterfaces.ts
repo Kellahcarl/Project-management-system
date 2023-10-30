@@ -3,10 +3,6 @@ export interface user {
   username: string;
   password: string;
   email: string;
-}
-export interface newUser {
-  id: string;
-  username: string;
-  newPassword: string;
-  email: string;
+  isdeleted: boolean;
+  isAdmin: boolean;
 }

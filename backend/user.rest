@@ -1,0 +1,28 @@
+post http://localhost:3550/user/register
+Content-Type: application/json
+
+{
+    "username": "data",
+    "email":"dan@thejitu.com",
+    "password": "12345"
+}
+
+#####
+
+get http://localhost:3550/user
+
+#####
+get http://localhost:3550/user/018ed0d4-879b-4a48-97fa-9748c3d34b10
+
+####
+
+post http://localhost:3550/user/login
+Content-Type: application/json
+
+{
+    
+    "email":"dan@thejitu.com",
+    "password": "12345"
+}
+#####
+

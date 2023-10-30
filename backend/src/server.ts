@@ -8,8 +8,8 @@ import express, {
 
 import dotenv from "dotenv";
 import cors from "cors";
-import user_router from "./src/routes/userRouter";
-import project_router from "./src/routes/projectRouter";
+import user_router from "./routes/userRouter";
+import project_router from "./routes/projectRouter";
 
 dotenv.config();
 
