@@ -25,7 +25,9 @@ body{
 
 }
 #signInButton{
-    background-color: rgb(0, 204, 255);
+    background-color: rgb(16, 246, 250);
     margin-bottom: 20px;
+    width: 70%;
+    height: 30px;
 
 }
