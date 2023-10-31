@@ -59,6 +59,28 @@ export const registerUser = async (req: Request, res: Response) => {
     const salt = await bcrypt.genSalt(10);
     const newPassword = await bcrypt.hash(password, salt);
 
+    const procedure1 = "getUserByEmail";
+    const result = await execute(procedure1, { email });
+
+    const userWithEmail = result.recordset[0];
+
+    if (userWithEmail)
+      return res
+        .status(404)
+        .send({ message: "Account exists with the given email" });
+
+    // const procedure2 = "getUserByUsername";
+    // console.log({ username });
+
+    // const result1 = await execute(procedure2, { username });
+
+    // const userWithUsername = result1.recordset[0];
+
+    // if (userWithUsername)
+    //   return res
+    //     .status(404)
+    //     .send({ message: "Account exists with the given username" });
+
     const newUser: user = {
       id: uuidv4(),
       username,
