@@ -6,6 +6,12 @@ import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
 import { updatUser, user } from "../types/userInterfaces";
 import { generateToken } from "../services/tokenGenerator";
+import {
+  validateLoginUser,
+  validateRegisterUser,
+  validateUpdateuser,
+  validateuserId,
+} from "../validators/userValidator";
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -21,6 +27,14 @@ export const getUser = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
     // console.log(id);
+    if (!id) return res.status(400).send({ message: "Id is required" });
+
+    const { error } = validateuserId.validate(req.params);
+
+    if (error)
+      return res
+        .status(400)
+        .send({ success: false, message: error.details[0].message });
 
     const procedureName = "getUserById";
     const result = await execute(procedureName, { id });
@@ -34,6 +48,14 @@ export const getUser = async (req: Request, res: Response) => {
 export const registerUser = async (req: Request, res: Response) => {
   try {
     const { username, password, email } = req.body;
+
+    const { error } = validateRegisterUser.validate(req.body);
+
+    if (error)
+      return res
+        .status(400)
+        .send({ success: false, message: error.details[0].message });
+
     const salt = await bcrypt.genSalt(10);
     const newPassword = await bcrypt.hash(password, salt);
 
@@ -61,6 +83,14 @@ export const loginUser = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
     const procedureName = "getUserByEmail";
+
+    const { error } = validateLoginUser.validate(req.body);
+
+    if (error)
+      return res
+        .status(400)
+        .send({ success: false, message: error.details[0].message });
+
     const result = await execute(procedureName, { email });
     if (result) {
       const recordset = result.recordset;
@@ -92,6 +122,12 @@ export const updateUser = async (req: Request, res: Response) => {
   try {
     const { id, username, email } = req.body;
 
+    const { error } = validateUpdateuser.validate(req.body);
+    if (error)
+      return res
+        .status(400)
+        .send({ success: false, message: error.details[0].message });
+
     const newUser: updatUser = {
       id,
       username,
@@ -117,6 +153,14 @@ export const deleteUser = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
     // console.log(id);
+    if (!id) return res.status(400).send({ message: "Id is required" });
+
+    const { error } = validateuserId.validate(req.params);
+
+    if (error)
+      return res
+        .status(400)
+        .send({ success: false, message: error.details[0].message });
 
     const procedureName = "deleteUser";
     const result = await execute(procedureName, { id });

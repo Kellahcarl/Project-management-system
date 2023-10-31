@@ -5,7 +5,7 @@ Content-Type: application/json
 {
     "username": "sandra",
     "email":"sandra@thejitu.com",
-    "password": "12345"
+    "password": "@QwSandra123"
 }
 
 #####get all users
