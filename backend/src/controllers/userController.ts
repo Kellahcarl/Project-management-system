@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
-import { execute, query } from "../database/dbconnect";
-import Joi from "joi";
-import bcrypt from "bcrypt";
+import { execute, query } from "../services/dbconnect";
+
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
-import { updatUser, user } from "../types/userInterfaces";
+import { ExtendedUser, updatUser, user } from '../types/userInterfaces';
 import { generateToken } from "../services/tokenGenerator";
 import {
   validateLoginUser,
@@ -12,6 +11,7 @@ import {
   validateUpdateuser,
   validateuserId,
 } from "../validators/userValidator";
+import { comparePass, hashPass } from "../services/passwordHash";
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -56,8 +56,7 @@ export const registerUser = async (req: Request, res: Response) => {
         .status(400)
         .send({ success: false, message: error.details[0].message });
 
-    const salt = await bcrypt.genSalt(10);
-    const newPassword = await bcrypt.hash(password, salt);
+    const newPassword = await hashPass(password);
 
     const procedure1 = "getUserByEmail";
     const result = await execute(procedure1, { email });
@@ -98,6 +97,7 @@ export const registerUser = async (req: Request, res: Response) => {
     return res.send({ message: "User registered succesfully" });
   } catch (error) {
     console.log(error);
+    res.send((error as Error).message);
   }
 };
 
@@ -122,12 +122,12 @@ export const loginUser = async (req: Request, res: Response) => {
         return res.status(404).send({ message: "Account does not exist" });
       }
 
-      const validPassword = await bcrypt.compare(password, user.password);
+      const validPassword = comparePass(password, user.password);
       if (!validPassword) {
         return res.status(404).send({ message: "Invalid email or password" });
       }
 
-      const token = generateToken(user.email, user._id);
+      const token = generateToken(user.email, user._id,user.username);
       return res.send({
         user: _.pick(user, ["_id", "username", "email"]),
         token,
@@ -185,7 +185,7 @@ export const deleteUser = async (req: Request, res: Response) => {
         .send({ success: false, message: error.details[0].message });
 
     const procedureName = "deleteUser";
-    const result = await execute(procedureName, { id });
+    await execute(procedureName, { id });
 
     res.status(201).send({ message: "User deleted Successfully" });
   } catch (error) {
@@ -195,3 +195,15 @@ export const deleteUser = async (req: Request, res: Response) => {
 
 export const resetPassword = async () => {};
 export const forgotPassword = async () => {};
+
+export const checkUserDetails = async (req: ExtendedUser, res: Response) => {
+  console.log("checking details");
+
+  // console.log(req.info);
+
+  if (req.info) {
+    return res.json({
+      info: req.info,
+    });
+  }
+};

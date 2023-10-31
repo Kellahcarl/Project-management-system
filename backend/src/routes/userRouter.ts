@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  checkUserDetails,
   deleteUser,
   getUser,
   getUsers,
@@ -8,13 +9,13 @@ import {
   updateUser,
 } from "../controllers/userController";
 import { verifyToken } from "../middleware/verifyToken";
-import { verify } from "jsonwebtoken";
 
 const user_router = Router();
 
 user_router.post("/register", registerUser);
 user_router.get("/", verifyToken, getUsers);
 user_router.put("/", verifyToken, updateUser);
+user_router.get("/check_user_details", verifyToken, checkUserDetails);
 
 user_router.post("/login", loginUser);
 user_router.get("/:id", verifyToken, getUser);

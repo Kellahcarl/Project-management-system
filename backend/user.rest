@@ -3,19 +3,20 @@ post http://localhost:3550/user/register
 Content-Type: application/json
 
 {
-    "username": "jenny",
-    "email":"jenny1@thejitu.com",
-    "password": "@Jenny433"
+    "username": "sylvia",
+    "email":"silvia@thejitu.com",
+    "password": "@Sylvia433"
 }
 
 #####get all users
 
 get http://localhost:3550/user
-token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Implbm55QHRoZWppdHUuY29tIiwiaWQiOiIxM2M0ZjdiOS0wZDlhLTQxODAtYTViZS02ZmVkZjI4YzY2NzgiLCJpYXQiOjE2OTg3NDg3NDAsImV4cCI6MTY5ODgzNTE0MH0.jZ2-LcurzlMYJNRU_cTaQdTjSFzw7LhvoZ0cYZ6YyIY
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNpbHZpYUB0aGVqaXR1LmNvbSIsImlkIjoiYmI2NWQxZGQtNjQwMi00OTdjLTlhNmYtOWQ0MzMyM2MyMzAyIiwiaWF0IjoxNjk4NzYwNTQyLCJleHAiOjE2OTg4NDY5NDJ9.Nc9EYC7tBaKLt5f1V203BSgpWVcrmdKlcwz6FSgeSTo
 
 
 #####get one user by id
-get http://localhost:3550/user/13c4f7b9-0d9a-4180-a5be-6fedf28c6678
+get http://localhost:3550/user/bb65d1dd-6402-497c-9a6f-9d43323c2302
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNpbHZpYUB0aGVqaXR1LmNvbSIsImlkIjoiYmI2NWQxZGQtNjQwMi00OTdjLTlhNmYtOWQ0MzMyM2MyMzAyIiwiaWF0IjoxNjk4NzYwNTQyLCJleHAiOjE2OTg4NDY5NDJ9.Nc9EYC7tBaKLt5f1V203BSgpWVcrmdKlcwz6FSgeSTo
 
 ####login user
 
@@ -24,19 +25,24 @@ Content-Type: application/json
 
 {
     
-    "email":"jenny@thejitu.com",
-    "password": "@Jenny433"
+    "email":"silvia@thejitu.com",
+    "password": "@Sylvia433"
 }
 #####update user
+
 put http://localhost:3550/user
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNpbHZpYUB0aGVqaXR1LmNvbSIsImlkIjoiYmI2NWQxZGQtNjQwMi00OTdjLTlhNmYtOWQ0MzMyM2MyMzAyIiwiaWF0IjoxNjk4NzYwNTQyLCJleHAiOjE2OTg4NDY5NDJ9.Nc9EYC7tBaKLt5f1V203BSgpWVcrmdKlcwz6FSgeSTo
 Content-Type: application/json
 
 {
-    "id":"018ed0d4-879b-4a48-97fa-9748c3d34b10",
-    "username": "daniel",
-    "email":"dan@thejitu.com"    
+    "id":"bb65d1dd-6402-497c-9a6f-9d43323c2302",
+    "username": "mogutu",
+    "email":"mogutu@thejitu.com"    
+    
 }
 
+
 ##### delete user by ID
-delete http://localhost:3550/user/ec0311a5-7cb1-491f-89b2-3699b89d30c0
+delete http://localhost:3550/user/bb65d1dd-6402-497c-9a6f-9d43323c2302
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNpbHZpYUB0aGVqaXR1LmNvbSIsImlkIjoiYmI2NWQxZGQtNjQwMi00OTdjLTlhNmYtOWQ0MzMyM2MyMzAyIiwiaWF0IjoxNjk4NzYwNTQyLCJleHAiOjE2OTg4NDY5NDJ9.Nc9EYC7tBaKLt5f1V203BSgpWVcrmdKlcwz6FSgeSTo
 

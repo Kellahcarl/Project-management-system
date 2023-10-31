@@ -4,10 +4,10 @@ import { NextFunction, Request, Response } from "express";
 dotenv.config();
 
 import jwt from "jsonwebtoken";
-import { user } from "../types/userInterfaces";
+import { updatUser, user } from "../types/userInterfaces";
 
 export interface ExtendedUser extends Request {
-  info?: user;
+  info?: updatUser;
 }
 
 export const verifyToken = (
@@ -22,8 +22,14 @@ export const verifyToken = (
         message: "No token provided",
       });
     }
-    const decoded = jwt.verify(token, process.env.SECRET_KEY as string);
-    req.info = decoded as user;
-  } catch (error) {}
+    const decoded = jwt.verify(
+      token,
+      process.env.SECRET_KEY as string
+    ) as updatUser;
+    req.info = decoded;
+  } catch (error) {
+    return res.json((error as Error).message);
+  }
+
   next();
 };

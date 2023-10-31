@@ -6,9 +6,14 @@ dotenv.config();
 
 const secretKey = process.env.SECRET_KEY as string;
 
-export const generateToken = (email: string, id: string): string => {
+export const generateToken = (
+  email: string,
+  id: string,
+  username: string
+): string => {
   return jwt.sign(
     {
+      username,
       email,
       id,
     },
