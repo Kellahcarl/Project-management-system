@@ -1,20 +1,21 @@
+####regester user
 post http://localhost:3550/user/register
 Content-Type: application/json
 
 {
-    "username": "data",
-    "email":"dan@thejitu.com",
+    "username": "sandra",
+    "email":"sandra@thejitu.com",
     "password": "12345"
 }
 
-#####
+#####get all users
 
 get http://localhost:3550/user
 
-#####
+#####get one user by id
 get http://localhost:3550/user/018ed0d4-879b-4a48-97fa-9748c3d34b10
 
-####
+####login user
 
 post http://localhost:3550/user/login
 Content-Type: application/json
@@ -24,5 +25,16 @@ Content-Type: application/json
     "email":"dan@thejitu.com",
     "password": "12345"
 }
-#####
+#####update user
+put http://localhost:3550/user
+Content-Type: application/json
+
+{
+    "id":"018ed0d4-879b-4a48-97fa-9748c3d34b10",
+    "username": "daniel",
+    "email":"dan@thejitu.com"    
+}
+
+##### delete user by ID
+delete http://localhost:3550/user/ec0311a5-7cb1-491f-89b2-3699b89d30c0
 

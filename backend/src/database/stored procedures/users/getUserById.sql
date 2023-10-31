@@ -9,8 +9,8 @@ begin
 			u.email,
 			u.username,
 			u.isAdmin,
-			u.isDeleted,
-			u.password
+			u.isDeleted
+		
 	from	[users] u where _id= @id;
 end;
 

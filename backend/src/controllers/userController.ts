@@ -4,7 +4,7 @@ import Joi from "joi";
 import bcrypt from "bcrypt";
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
-import { user } from "../types/userInterfaces";
+import { updatUser, user } from "../types/userInterfaces";
 import { generateToken } from "../services/tokenGenerator";
 
 export const getUsers = async (req: Request, res: Response) => {
@@ -87,3 +87,45 @@ export const loginUser = async (req: Request, res: Response) => {
     console.log(error);
   }
 };
+
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { id, username, email } = req.body;
+
+    const newUser: updatUser = {
+      id,
+      username,
+      email,
+    };
+
+    const procedureName = "updateUser";
+    const params = newUser;
+    // console.log(params);
+
+    await execute(procedureName, params);
+    return res.send({ message: "User updated successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      error: (error as Error).message,
+      message: "Internal Sever Error",
+    });
+  }
+};
+
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    // console.log(id);
+
+    const procedureName = "deleteUser";
+    const result = await execute(procedureName, { id });
+
+    res.status(201).send({ message: "User deleted Successfully" });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const resetPassword = async () => {};
+export const forgotPassword = async () => {};

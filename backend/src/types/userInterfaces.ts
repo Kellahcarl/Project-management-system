@@ -6,3 +6,9 @@ export interface user {
   isdeleted: boolean;
   isAdmin: boolean;
 }
+
+export interface updatUser {
+  id: string;
+  username: string;
+  email: string;
+}
