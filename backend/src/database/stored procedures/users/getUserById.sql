@@ -8,10 +8,9 @@ begin
 	select	u.[_id],
 			u.email,
 			u.username,
-			u.isAdmin,
-			u.isDeleted
+			u.isAdmin
 		
-	from	[users] u where _id= @id;
+	from	[users] u where _id= @id and isDeleted = 0;
 end;
 
 exec getUserById
