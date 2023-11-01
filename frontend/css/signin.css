@@ -36,3 +36,8 @@ body{
 #input{
     height: 30px;
 }
+.nav{
+    display: flex;
+    font-size: 10px;
+    justify-content: end;
+}
