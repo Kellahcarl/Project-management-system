@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>sign-up</title>
-    <link rel="stylesheet" href="\frontend\css\signup.css">
-</head>
-<body>
-    <div  class="main">
-        <div class="create_acc">
-            <div id="sign_in">
-                <p>Already have an account? <a href="">Sign in</a></p>
-            </div>
-            <div class="form_input">
-                <h2>Create an account</h2>
-                <input type="text" placeholder="First Name" id="input"><br><br><br>
-                <input type="text" placeholder="Last Name" id="input"><br><br><br>
-                <input type="text" placeholder="Email" id="input"><br><br><br>
-                <input type="text" placeholder="Password" id="input"><br><br><br>
-                <button id="sign-up-btn">Sign up</button>
-
-            </div>
-
+    <link rel="stylesheet" href="\frontend\css\signup.css" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="create_acc">
+        <div id="sign_in">
+          <p>Already have an account? <a href="">Sign in</a></p>
         </div>
-        <div class="blue_background">
-            <p>my pics</p>
-            <img src="\frontend\images\milad-fakurian-NU0ZkWKPSY4-unsplash.jpg" alt="">
-
+        <div id="registration-form" class="form_input">
+          <h2>Create an account</h2>
+          <input type="text" placeholder="Username" id="Username" />
+          <input type="text" placeholder="email" id="email" />
+          <input type="text" placeholder="password" id="password" />
+          <input
+            type="text"
+            placeholder="confirm password"
+            id="confirm-password"
+          />
+          <button type="submit" id="sign-up-btn">Sign up</button>
         </div>
-
-    </div>a
-    
-</body>
+      </div>
+      <div class="blue_background">
+        <p>my pics</p>
+        <img
+          src="\frontend\images\milad-fakurian-NU0ZkWKPSY4-unsplash.jpg"
+          alt=""
+        />
+      </div>
+    </div>
+    <script src="../dist/signup.js"></script>
+  </body>
 </html>
