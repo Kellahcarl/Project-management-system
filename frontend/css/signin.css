@@ -29,5 +29,10 @@ body{
     margin-bottom: 20px;
     width: 100%;
     height: 30px;
+    border-radius: 10px;
+    border-color: none;
 
+}
+#input{
+    height: 30px;
 }
