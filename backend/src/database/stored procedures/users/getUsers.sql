@@ -6,8 +6,7 @@ set nocount on;
 begin
 	select	u.[_id],
 			u.username,
-			u.email,			
-			u.isDeleted,
+			u.email,
 			u.isAdmin
-	from	[users] u ;
+	from	[users] u where isDeleted = 0;
 end;

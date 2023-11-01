@@ -3,7 +3,7 @@ import { execute, query } from "../services/dbconnect";
 
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
-import { ExtendedUser, updatUser, user } from '../types/userInterfaces';
+import { ExtendedUser, updatUser, user } from "../types/userInterfaces";
 import { generateToken } from "../services/tokenGenerator";
 import {
   validateLoginUser,
@@ -127,9 +127,9 @@ export const loginUser = async (req: Request, res: Response) => {
         return res.status(404).send({ message: "Invalid email or password" });
       }
 
-      const token = generateToken(user.email, user._id,user.username);
+      const token = generateToken(user.email, user._id, user.username);
       return res.send({
-        user: _.pick(user, ["_id", "username", "email"]),
+        message: "Logged in successfully",
         token,
       });
     } else {
@@ -196,14 +196,23 @@ export const deleteUser = async (req: Request, res: Response) => {
 export const resetPassword = async () => {};
 export const forgotPassword = async () => {};
 
-export const checkUserDetails = async (req: ExtendedUser, res: Response) => {
+// export const checkUserDetails = async (request: ExtendedUser, res: Response) => {
+//   console.log("checking details");
+
+//   console.log(request.info);
+
+//   if (request.info) {
+//     return res.json({
+//       info: request.info,
+//     });
+//   }
+// };
+
+export const checkUserDetails = async (request: any, res: Response) => {
   console.log("checking details");
-
-  // console.log(req.info);
-
-  if (req.info) {
+  if (request.info) {
     return res.json({
-      info: req.info,
+      info: request.info,
     });
   }
 };

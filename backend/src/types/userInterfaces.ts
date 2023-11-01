@@ -12,3 +12,9 @@ export interface user extends updatUser {
 export interface ExtendedUser extends Request {
   info?: updatUser;
 }
+
+export interface checkDetailsUser {
+  _id: string;
+  username: string;
+  email: string;
+}
