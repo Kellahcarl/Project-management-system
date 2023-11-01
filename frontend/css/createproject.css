@@ -11,7 +11,7 @@
 }
 .new-project{
     width: 70vw;
-    background-color: aqua;
+    /* background-color: rgb(16, 246, 250); */
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -23,24 +23,106 @@
 #create-name-input{
     width: 70vw;
     height: 30px;
+    border: 2px solid cyan;
     margin-bottom: 20px;
 }
 #desc-input{
     width: 70vw;
-    height: 120px;
-    background-color: rgb(248, 247, 247);
+    height: 100px;
+    background-color: rgb(248, 241, 247);
     margin-bottom: 30px;
+    border: none;
 }
-#dates{
+.date{
     display: flex;
     flex-wrap: wrap;
-    row-gap: 50px;
-}
-#calenda{
-    width: 30vw;
+    justify-content: space-between;
+    
 }
 #create-btn{
-
+    height: 30px;
     display: flex;
-    justify-content: flex-end;
+    margin-top: 200px;
+    margin-left: 700px;
+    gap: 10px;
+    border: none;
 }
+#date-input > input{
+    border: 2px solid cyan;
+    width: 150px;
+    height: 30px;
+}
+button:hover{
+    background-color: hsl(177, 100%, 67%);
+    border: none;
+}
+.datepicker {
+    position: relative;
+    width: 300px;
+}
+
+#selected-date {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.calendar {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    display: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f2f2f2;
+}
+
+.days-of-week {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f2f2f2;
+    color: cyan;
+}
+
+.days-of-month {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    padding: 10px;
+}
+
+.days-of-month span {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.days-of-month span:hover {
+    background-color: #ddd;
+}
+
+#selected-date:focus + .calendar,
+.calendar:hover {
+    display: block;
+   
+}
+#selected-date{
+     border: 2px solis cyan;
+}
+
+
+
+
+
+
