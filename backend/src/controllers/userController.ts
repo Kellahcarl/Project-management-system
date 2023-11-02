@@ -13,6 +13,7 @@ import {
 } from "../validators/userValidator";
 import { comparePass, hashPass } from "../services/passwordHash";
 
+
 export const getUsers = async (req: Request, res: Response) => {
   try {
     const procedureName = "getUsers";
@@ -54,7 +55,7 @@ export const registerUser = async (req: Request, res: Response) => {
     if (error)
       return res
         .status(400)
-        .send({ success: false, message: error.details[0].message });
+        .send({ success: false, error: error.details[0].message });
 
     const newPassword = await hashPass(password);
 
@@ -66,7 +67,7 @@ export const registerUser = async (req: Request, res: Response) => {
     if (userWithEmail)
       return res
         .status(404)
-        .send({ message: "Account exists with the given email" });
+        .send({ error: "Account exists with the given email" });
 
     // const procedure2 = "getUserByUsername";
     // console.log({ username });
@@ -94,10 +95,11 @@ export const registerUser = async (req: Request, res: Response) => {
     // console.log(params);
 
     await execute(procedureName, params);
+
     return res.send({ message: "User registered succesfully" });
   } catch (error) {
     console.log(error);
-    res.send((error as Error).message);
+    res.send({ error: (error as Error).message });
   }
 };
 
@@ -111,7 +113,7 @@ export const loginUser = async (req: Request, res: Response) => {
     if (error)
       return res
         .status(400)
-        .send({ success: false, message: error.details[0].message });
+        .send({ success: false, error: 'incorrect email or password format!' });
 
     const result = await execute(procedureName, { email });
     if (result) {
@@ -119,15 +121,21 @@ export const loginUser = async (req: Request, res: Response) => {
       const user = recordset[0];
 
       if (!user) {
-        return res.status(404).send({ message: "Account does not exist" });
+        return res.status(404).send({ error: "Account does not exist" });
       }
 
-      const validPassword = comparePass(password, user.password);
+      const validPassword = await comparePass(password, user.password);
+
       if (!validPassword) {
-        return res.status(404).send({ message: "Invalid email or password" });
+        return res.status(404).send({ error: "Invalid password" });
       }
 
-      const token = generateToken(user.email, user._id, user.username);
+      const token = generateToken(
+        user.email,
+        user._id,
+        user.username,
+        user.isAdmin
+      );
       return res.send({
         message: "Logged in successfully",
         token,
@@ -196,20 +204,8 @@ export const deleteUser = async (req: Request, res: Response) => {
 export const resetPassword = async () => {};
 export const forgotPassword = async () => {};
 
-// export const checkUserDetails = async (request: ExtendedUser, res: Response) => {
-//   console.log("checking details");
-
-//   console.log(request.info);
-
-//   if (request.info) {
-//     return res.json({
-//       info: request.info,
-//     });
-//   }
-// };
-
 export const checkUserDetails = async (request: any, res: Response) => {
-  console.log("checking details");
+  // console.log("checking details");
   if (request.info) {
     return res.json({
       info: request.info,

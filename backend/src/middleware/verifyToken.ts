@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from "express";
 dotenv.config();
 
 import jwt from "jsonwebtoken";
-import { checkDetailsUser, updatUser, user } from "../types/userInterfaces";
+import { checkDetailsUser } from "../types/userInterfaces";
 
 export interface ExtendedUser extends Request {
   info?: checkDetailsUser;
