@@ -109,6 +109,8 @@ export const completeProject = async (req: Request, res: Response) => {
 
   res.status(201).send({ message: "Project completed Successfully" });
 };
+export const getProject = async (req: Request, res: Response) => {};
+export const getProjects = async (req: Request, res: Response) => {};
 export const getAssignedProject = async (req: Request, res: Response) => {};
 export const assignProject = async (req: Request, res: Response) => {};
 export const unassignProject = async (req: Request, res: Response) => {};
