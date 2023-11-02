@@ -13,7 +13,6 @@ import {
 } from "../validators/userValidator";
 import { comparePass, hashPass } from "../services/passwordHash";
 
-
 export const getUsers = async (req: Request, res: Response) => {
   try {
     const procedureName = "getUsers";
@@ -55,7 +54,7 @@ export const registerUser = async (req: Request, res: Response) => {
     if (error)
       return res
         .status(400)
-        .send({ success: false, error: error.details[0].message });
+        .send({ error: "please input correct password and email!" });
 
     const newPassword = await hashPass(password);
 
@@ -68,7 +67,6 @@ export const registerUser = async (req: Request, res: Response) => {
       return res
         .status(404)
         .send({ error: "Account exists with the given email" });
-
 
     const newUser: user = {
       id: uuidv4(),
@@ -102,7 +100,7 @@ export const loginUser = async (req: Request, res: Response) => {
     if (error)
       return res
         .status(400)
-        .send({ success: false, error: 'incorrect email or password format!' });
+        .send({ success: false, error: "incorrect email or password format!" });
 
     const result = await execute(procedureName, { email });
     if (result) {

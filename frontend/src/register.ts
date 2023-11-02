@@ -74,17 +74,24 @@ document.addEventListener("DOMContentLoaded", () => {
               ApiMessageBox.classList.remove("text-danger");
               ApiMessageBox.classList.add("text-success");
               ApiMessageBox.textContent = data.message;
-            }
-            if ("error" in data) {
+              setTimeout(() => {
+                gotoLogin();
+                resolve(data);
+              }, 3000);
+            } else if ("error" in data) {
               ApiMessageBox.classList.remove("text-success");
               ApiMessageBox.classList.add("text-danger");
               ApiMessageBox.textContent = data.error;
+
+              setTimeout(() => {
+                ApiMessageBox.style.display = "none";
+                location.href = "../pages/register.html";
+              }, 3000);
+
+              reject(data);
             }
-            setTimeout(() => {}, 2000);
+
             console.log(data);
-            
-            gotoLogin();
-            resolve(data);
           })
           .catch((error) => {
             console.log(error);

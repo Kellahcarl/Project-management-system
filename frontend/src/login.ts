@@ -68,11 +68,11 @@ document.addEventListener("DOMContentLoaded", () => {
             ApiMessageBox.textContent = data.error;
           }
 
-          setTimeout(() => {}, 2000);
+          setTimeout(() => {
+            redirect();
 
-          redirect();
-
-          resolve(data);
+            resolve(data);
+          }, 2000);
 
           console.log(data);
         })
