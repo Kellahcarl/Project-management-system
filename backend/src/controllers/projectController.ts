@@ -109,8 +109,49 @@ export const completeProject = async (req: Request, res: Response) => {
 
   res.status(201).send({ message: "Project completed Successfully" });
 };
-export const getProject = async (req: Request, res: Response) => {};
-export const getProjects = async (req: Request, res: Response) => {};
+export const getProject = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      if (!id) return res.status(400).send({ message: "Id is required" });
+  
+      const { error } = validateProjectId.validate(req.params);
+      if (error)
+        return res
+          .status(400)
+          .send({ success: false, message: error.details[0].message });
+  
+      const procedureName = "getProject";
+      const result = await query(procedureName, { id });
+  
+      res.status(200).send(result);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        error: (error as Error).message,
+        message: "Internal Server Error",
+      });
+    }
+  };
+  
+  export const getProjects = async (req: Request, res: Response) => {
+    try {
+      const procedureName = "getProjects";
+      const result = await query(procedureName);
+  
+      res.status(200).send(result);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        error: (error as Error).message,
+        message: "Internal Server Error",
+      });
+    }
+  };
+  
+
+  
 export const getAssignedProject = async (req: Request, res: Response) => {};
 export const assignProject = async (req: Request, res: Response) => {};
 export const unassignProject = async (req: Request, res: Response) => {};
+
+
