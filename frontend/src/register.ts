@@ -80,13 +80,15 @@ document.addEventListener("DOMContentLoaded", () => {
               ApiMessageBox.classList.add("text-danger");
               ApiMessageBox.textContent = data.error;
             }
-
+            setTimeout(() => {}, 2000);
             console.log(data);
+            
             gotoLogin();
             resolve(data);
           })
           .catch((error) => {
             console.log(error);
+            location.href = "../pages/register.html";
           });
       }
     );

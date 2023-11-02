@@ -69,17 +69,6 @@ export const registerUser = async (req: Request, res: Response) => {
         .status(404)
         .send({ error: "Account exists with the given email" });
 
-    // const procedure2 = "getUserByUsername";
-    // console.log({ username });
-
-    // const result1 = await execute(procedure2, { username });
-
-    // const userWithUsername = result1.recordset[0];
-
-    // if (userWithUsername)
-    //   return res
-    //     .status(404)
-    //     .send({ message: "Account exists with the given username" });
 
     const newUser: user = {
       id: uuidv4(),
