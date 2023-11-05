@@ -12,8 +12,38 @@ body {
   height: 100vh;
 }
 
+.container {
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  max-height: 70vh;
+  max-width: 70vw;
+  margin: auto;
+  margin-top: 80px;
+}
+
+.row {
+  height: 100%;
+}
+
+.col-md-6 {
+  padding: 2rem;
+}
+
+.form-control {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif; /* Added font family */
+}
+
+.img-container {
+  font-family: 'Roboto', sans-serif; /* Added font family */
+}
+
 .img-container > img {
-  width: 45vw;
-  object-fit: fill;
-  height: 90vh;
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
 }
