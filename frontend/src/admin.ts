@@ -1,102 +1,85 @@
-// import { isAuthenticated,  logout } from "./auth";
-
-import bootstrap from "bootstrap";
-
-const toolTips = document.querySelectorAll(".tt");
-document.addEventListener("DOMContentLoaded", async () => {
-
-  const projectData : any = await getData()
-  const logoutButton = document.getElementById(
-    "logout-button"
-  ) as HTMLButtonElement;
-
-  if (!isAuthenticated()) {
-    location.href = "../pages/login.html";
-    // Redirect to the login page if there is no token
-  }
-
-  logoutButton.addEventListener("click", () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user_email");
-    location.href = "../pages/login.html";
-  });
-});
+// Define a function to check if the user is authenticated
 const isAuthenticated = (): boolean => {
   const token = localStorage.getItem("token");
   return !!token;
 };
 
-const getElement = (selection: string) => {
-  const element = document.querySelector(selection) as HTMLElement;
-  if (element) return element;
-  throw new Error(`There is no such element: ${selection}, please check`);
+// Function to handle user logout
+const logoutUser = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user_email");
+  location.href = "../pages/login.html";
 };
 
-toolTips.forEach((t) => {
-  new bootstrap.Tooltip(t);
-});
+// Function to fetch projects from the API
+const fetchProjects = async () => {
+  try {
+    const response = await fetch("http://localhost:3550/project");
+    if (!response.ok) {
+      throw new Error("Failed to fetch projects.");
+    }
+    const data = await response.json();
+    console.log(data);
 
-//function to get data from API
-const getData = async (url: string): Promise<any> => {
-  const response: Response = await fetch(url);
-  if (response) {
-    return response.json();
+    displayProjects(data);
+  } catch (error) {
+    console.error(error);
   }
-  throw new Error("An error occurred while fetching the data.");
 };
 
-const projects: Element = getElement(".product-content");
+// Function to display projects in the "product-content" element
+const displayProjects = (projects: any[]) => {
+  const productContent = document.querySelector(".product-content");
+  if (!productContent) {
+    console.error("product-content element not found.");
+    return;
+  }
 
-const displayProject = (data: any[], section: Element): void => {
-  const html: string = data
-    .map((item) => {
-      const { name, duedate, description, status, _id } = item;
-      return `    
-      <div class="col-12 col-md-6 col-lg-4 ">
-        <div class="card shadow features-card" data-id=${_id}>
-          <div class="card-body ">            
-            <div
-              class="card-title text-center h5 fw-normal text-muted mt-"
-            >
-              ${name}
+  const html = projects
+    .map((project) => {
+      const dueDate = new Date(project.dueDate);
+      const formattedDate = dueDate.toISOString().split("T")[0];
+      
+      return `
+        <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+          <div class="card shadow features-card" data-id="${project.project_id}">
+            <div class="card-body">
+              <div class="card-title text-center h3 fw-normal  mb-3">
+                ${project.project_name}
+              </div>
+              <div class="card-text text-center">
+                <span class=" text-center">${project.project_description}</span>
+              </div>
+              <div class="card-text text-center">
+                <span class=" text-center"> Due by: ${formattedDate}</span>
+              </div>
+              <div class="card-text text-center">
+                <span class=" text-center"> Status : ${project.project_status} </span>
+              </div>
             </div>
-            <div class="card-text text-center">
-              <span class="h4 text-center">${description}</span>
-            </div>
-            <div class="card-text text-center">
-              <span class="h4 text-center"> Due by : ${duedate}</span>
-            </div>
-            <div class="card-text text-center">
-              <span class="h4 text-center"> ${status} </span>
-            </div>
-            <div class="card-text text-center">
-              <span class="h4 text-center">
-                <ion-icon class="edit" name="create-outline"></ion-icon>              
-                <input
-                  type="checkbox"
-                  id="complete"
-                  name="complete"
-                  value="complete"
-                  title="complete"
-                />
-                <label for="complete"> </label>                      
-                <ion-icon class="delete" name="trash-outline"></ion-icon>
-              </span>
-            </div>          
           </div>
         </div>
-      </div>`;
+      `;
     })
     .join("");
-  section.innerHTML = html;
-  const addBtns: NodeListOf<Element> = document.querySelectorAll(".addBtn");
-  addBtns.forEach((btn: Element) => {
-    btn.addEventListener("click", function (e: Event) {
-      const id: string = (e.currentTarget as HTMLElement)?.dataset.id || "";
 
-      e.preventDefault();
-      //   console.log(e.currentTarget);
-      // getting all ids of a card
-    });
-  });
+  productContent.innerHTML = html;
 };
+
+// Add an event listener to fetch and display projects when the DOM is loaded
+document.addEventListener("DOMContentLoaded", () => {
+  // Check if the user is authenticated
+  if (!isAuthenticated()) {
+    location.href = "../pages/login.html"; // Redirect to login if not authenticated
+  }
+
+  fetchProjects(); // Fetch and display projects
+
+  // Add a click event listener to the logout button
+  const logoutButton = document.getElementById("logout-button");
+  if (logoutButton) {
+    logoutButton.addEventListener("click", () => {
+      logoutUser(); // Logout the user when the button is clicked
+    });
+  }
+});
