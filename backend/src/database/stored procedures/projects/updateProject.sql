@@ -1,8 +1,8 @@
-CREATE PROCEDURE [dbo].[sp_updateProject]
-	@id varchar(100),
-	@name varchar(100),
+CREATE PROCEDURE [dbo].[updateProject]
+	@project_id varchar(100),
+	@project_name varchar(100),
 	@duedate date,
-	@description varchar(500)
+	@project_description varchar(500)
 as
 
 set nocount on;
@@ -10,9 +10,9 @@ set nocount on;
 begin
 	UPDATE dbo.projects
 	SET 
-	name=@name,
-	description=@description,
+	project_name=@project_name,
+	project_description=@project_description,
 	duedate=@duedate
 	
-	WHERE _id = @id ;
+	WHERE project_id = @project_id ;
 end;

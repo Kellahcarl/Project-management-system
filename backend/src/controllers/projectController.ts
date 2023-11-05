@@ -19,7 +19,7 @@ export const createProject = async (req: Request, res: Response) => {
     if (error)
       return res
         .status(400)
-        .send({ success: false, message: error.details[0].message });
+        .send({ success: false, message: "please place correct details" });
 
     const newProject: Project = {
       project_id: uuidv4(),
@@ -28,10 +28,10 @@ export const createProject = async (req: Request, res: Response) => {
       project_description,
     };
 
-    const procedure2 = "createProject";
+    const procedure = "createProject";
     const params = newProject;
 
-    await execute(procedure2, params);
+    await execute(procedure, params);
     return res.send({ message: "Project created successfully" });
   } catch (error) {
     console.log(error);
@@ -46,7 +46,7 @@ export const updateProject = async (req: Request, res: Response) => {
     if (error)
       return res
         .status(400)
-        .send({ success: false, message: error.details[0].message });
+        .send({ success: false, message: "please put correct details" });
 
     const newProject: Project = {
       project_id,
@@ -71,18 +71,18 @@ export const updateProject = async (req: Request, res: Response) => {
 };
 export const deleteProject = async (req: Request, res: Response) => {
   try {
-    const id = req.params.id;
-    if (!id) return res.status(400).send({ message: "Id is required" });
+    const project_id = req.params.project_id;
+    if (!project_id) return res.status(400).send({ message: "Id is required" });
 
     const { error } = validateProjectId.validate(req.params);
 
     if (error)
       return res
         .status(400)
-        .send({ success: false, message: error.details[0].message });
+        .send({ success: false, message: "please input id" });
 
     const procedureName = "deleteProject";
-    await execute(procedureName, { id });
+    await execute(procedureName, { project_id });
 
     res.status(201).send({ message: "Project deleted Successfully" });
   } catch (error) {
@@ -94,23 +94,125 @@ export const deleteProject = async (req: Request, res: Response) => {
   }
 };
 export const completeProject = async (req: Request, res: Response) => {
-  const id = req.params.id;
-  if (!id) return res.status(400).send({ message: "Id is required" });
+  const project_id = req.params.project_id;
+  // console.log(project_id);
 
-  const { error } = validateProjectId.validate(req.params);
-
-  if (error)
-    return res
-      .status(400)
-      .send({ success: false, message: error.details[0].message });
+  if (!project_id) return res.status(400).send({ message: "Id is required" });
 
   const procedureName = "completeProject";
-  await execute(procedureName, { id });
+  await execute(procedureName, { project_id });
 
   res.status(201).send({ message: "Project completed Successfully" });
 };
-export const getProject = async (req: Request, res: Response) => {};
-export const getProjects = async (req: Request, res: Response) => {};
-export const getAssignedProject = async (req: Request, res: Response) => {};
-export const assignProject = async (req: Request, res: Response) => {};
-export const unassignProject = async (req: Request, res: Response) => {};
+export const getProject = async (req: Request, res: Response) => {
+  try {
+    const project_id = req.params.project_id;
+    // console.log(id);
+    if (!project_id) return res.status(400).send({ message: "Id is required" });
+
+    const { error } = validateProjectId.validate(req.params);
+
+    if (error)
+      return res
+        .status(400)
+        .send({ success: false, message: error.details[0].message });
+
+    const procedureName = "getProjectById";
+    const result = await execute(procedureName, { project_id });
+
+    res.json(result.recordset);
+  } catch (error) {
+    console.log(error);
+    res.status(404).send({ message: "internal server error" });
+  }
+};
+export const getProjects = async (req: Request, res: Response) => {
+  try {
+    const procedureName = "getProjects";
+    const result = await query(`EXEC ${procedureName}`);
+    // console.log(result.recordset);
+
+    return res.json(result.recordset);
+  } catch (error) {
+    console.log(error);
+    res.status(404).send({ message: "internal server error" });
+  }
+};
+export const getAssignedProjects = async (req: Request, res: Response) => {
+  try {
+    const procedureName3 = "getAssignedProjects";
+
+    const result = await query(`EXEC ${procedureName3}`);
+
+    return res.status(200).json(result.recordset);
+  } catch (error) {
+    console.log(error);
+    res.status(404).send({ message: "internal server error" });
+  }
+};
+export const assignProject = async (req: Request, res: Response) => {
+  try {
+    const project_id = req.body.project_id;
+    const user_id = req.body.user_id;
+    // console.log(project_id);
+
+    if (!project_id)
+      return res.status(400).send({ message: "project Id is required" });
+    if (!user_id)
+      return res.status(400).send({ message: "user Id is required" });
+
+    //we want a stored procedure that will check if a project has already been assigned to a user
+    // if it has, then we want to return an error message
+    const procedureName3 = "getAssignedProject";
+    const params = { project_id, user_id };
+
+    const result = await execute(procedureName3, params);
+    if (result.recordset.length > 0)
+      return res.status(400).send({ message: "Project already assigned" });
+
+    const project_status = "assigned";
+
+    const procedureName = "assignProject";
+    const procedureName2 = "assignProjectStatus";
+    await execute(procedureName, { project_id, user_id });
+    await execute(procedureName2, { project_id, project_status });
+
+    res.status(201).send({ message: "Project Assigned Successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(404).send({ message: "internal server error" });
+  }
+};
+export const unassignProject = async (req: Request, res: Response) => {
+  try {
+    const project_id = req.body.project_id;
+    const user_id = req.body.user_id;
+    // console.log(project_id);
+
+    if (!project_id)
+      return res.status(400).send({ message: "project Id is required" });
+    if (!user_id)
+      return res.status(400).send({ message: "user Id is required" });
+
+    const procedureName3 = "getAssignedProject";
+    const params = { project_id, user_id };
+
+    const result = await execute(procedureName3, params);
+    // console.log(result.recordset);
+
+    if (result.recordset.length === 0)
+      return res.status(400).send({ message: "Project already unassigned" });
+
+    const project_status = "unassigned";
+
+    const procedureName = "unAssignProject";
+    const procedureName2 = "assignProjectStatus";
+    await execute(procedureName, { project_id, user_id });
+    await execute(procedureName2, { project_id, project_status });
+
+    res.status(201).send({ message: "Project unassigned Successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(404).send({ message: "internal server error" });
+  }
+};
