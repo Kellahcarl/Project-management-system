@@ -57,10 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((data) => {
           localStorage.setItem("token", data.token);
 
-          redirect();
-
-          resolve(data);
-
           if ("message" in data) {
             ApiMessageBox.classList.remove("text-danger");
             ApiMessageBox.classList.add("text-success");
@@ -72,10 +68,17 @@ document.addEventListener("DOMContentLoaded", () => {
             ApiMessageBox.textContent = data.error;
           }
 
+          setTimeout(() => {
+            redirect();
+
+            resolve(data);
+          }, 2000);
+
           console.log(data);
         })
         .catch((error) => {
           console.log(error);
+          location.href = "../pages/login.html";
           reject(error);
         });
     });

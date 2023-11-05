@@ -11,4 +11,9 @@ CREATE TABLE users (
 
 DROP TABLE users
 
+
+select * from users where isAdmin = 1
+
+update users set isAdmin = 1 where email = 'caleb.kellah@thejitu.com'
+
 create database PMS

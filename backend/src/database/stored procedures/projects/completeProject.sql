@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[completeProject]
+CREATE or alter PROCEDURE [dbo].[completeProject]
 	@project_id varchar(100)
 	
 as
@@ -6,7 +6,7 @@ as
 set nocount on;
 
 begin
-	UPDATE dbo.assignProjects
+	UPDATE dbo.projects
 	SET 
 	project_status = 'completed'
     	

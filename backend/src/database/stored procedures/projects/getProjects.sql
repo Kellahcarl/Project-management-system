@@ -1,9 +1,11 @@
-CREATE OR ALTER PROCEDURE [dbo].[getProjects]
 
-AS
-BEGIN
-    SET NOCOUNT ON;
+CREATE or alter PROCEDURE [dbo].[getProjects]
+	
+as
 
-	SELECT * FROM dbo.projects 
-			where isDeleted = 0		
-END
+set nocount on;
+
+begin
+	select *  from projects  
+   
+end;

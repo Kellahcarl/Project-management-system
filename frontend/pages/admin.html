@@ -3,231 +3,159 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <!-- <link
+    <title>Admin Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E<div class="card-circle-text">2</div>63XmFcJlSAwiGgFAW/dAiS6JXm"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
-    /> -->
-    <!-- <link rel="stylesheet" href="../css/style.css" /> -->
-    <link rel="stylesheet" href="../css/admin page.css" />
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/completecons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
+    />
+    <!-- <link rel="stylesheet" href="../css/admin-page.css" /> -->
   </head>
   <body>
-    <main>
-      <nav id="nav">
-        <div class="left-elements">
-          <div class="left-nav-elements"><a href="#"> Projects </a></div>
-          <div class="left-nav-elements"><a href="#"> Users </a></div>
-        </div>
-        <div class="right-elements">
-          <div class="right-nav-element"><a href="#"> Logout </a></div>
-          <div class="right-nav-element"><a href="#"> Profile </a></div>
-        </div>
-      </nav>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <div class="left-body">
-          <div class="left-top-body">
-            <div class="top-cards">
-              <div class="card">
-                <p class="card-text">projects</p>
-                <div class="card-circle">
-                  <div class="card-circle-text">2</div>
-                </div>
-              </div>
-            </div>
-            <div class="top-cards">
-              <div class="card">
-                <p class="card-text">projects</p>
-                <div class="card-circle">
-                  <div class="card-circle-text">2</div>
-                </div>
-              </div>
-            </div>
-            <div class="top-cards">
-              <div class="card">
-                <p class="card-text">projects</p>
-                <div class="card-circle">
-                  <div class="card-circle-text">2</div>
-                </div>
-              </div>
-            </div>
-            <div class="top-cards">
-              <div class="card">
-                <p class="card-text">projects</p>
-                <div class="card-circle">
-                  <div class="card-circle-text">2</div>
-                </div>
-              </div>
-            </div>
-            <div class="top-cards">
-              <div class="card">
-                <p class="card-text">projects</p>
-                <div class="card-circle">
-                  <div class="card-circle-text">2</div>
-                </div>
-              </div>
-            </div>
-            <div class="top-cards">
-              <div class="card">
-                <p class="card-text">projects</p>
-                <div class="card-circle">
-                  <div class="card-circle-text">2</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="left-bottom-body">
-            <div class="bottom-heading"><h1>My Projects</h1></div>
-            <div class="bottom-content">
-              <div class="content-top content">
-                <div>name</div>
-                <div>edit</div>
-                <div>Status</div>
-                <div>due date</div>
-                <div>assigned to</div>
-                <div>complete</div>
-                <div>delete</div>
-              </div>
-              <div class="content-rows content">
-                <div>name</div>
-                <div><ion-icon name="create-outline"></ion-icon></div>
-                <div><div class="status">pending</div></div>
-                <div>due date</div>
-                <div>
-                  <label for="cars">User:</label>
-
-                  <select name="cars" id="cars">
-                    <option value="audi">Audi</option>
-                  </select>
-                </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="complete"
-                    name="complete"
-                    value="Bike"
-                    title="complete"
-                  />
-                  <label for="complete"> </label>
-                </div>
-                <div>
-                  <ion-icon name="trash-outline"></ion-icon>
-                </div>
-              </div>
-              <div class="content-rows content">
-                <div>name</div>
-                <div><ion-icon name="create-outline"></ion-icon></div>
-                <div><div class="status">pending</div></div>
-                <div>due date</div>
-                <div>
-                  <label for="cars">User:</label>
-
-                  <select name="cars" id="cars">
-                    <option value="audi">Audi</option>
-                  </select>
-                </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="complete"
-                    name="complete"
-                    value="complete"
-                    title="complete"
-                  />
-                  <label for="complete"> </label>
-                </div>
-                <div><ion-icon name="trash-outline"></ion-icon></div>
-              </div>
-              <div class="content-rows content">
-                <div>name</div>
-                <div><ion-icon name="create-outline"></ion-icon></div>
-                <div><div class="status">pending</div></div>
-                <div>due date</div>
-                <div>
-                  <label for="cars">User:</label>
-
-                  <select name="cars" id="cars">
-                    <option value="audi">Audi</option>
-                  </select>
-                </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="complete"
-                    name="complete"
-                    value="complete"
-                    title="complete"
-                  />
-                  <label for="complete"> </label>
-                </div>
-                <div><ion-icon name="trash-outline"></ion-icon></div>
-              </div>
-              <div class="content-rows content">
-                <div>name</div>
-                <div><ion-icon name="create-outline"></ion-icon></div>
-                <div><div class="status">pending</div></div>
-                <div>due date</div>
-                <div>
-                  <label for="cars">User:</label>
-
-                  <select name="cars" id="cars">
-                    <option value="audi">Audi</option>
-                  </select>
-                </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="complete"
-                    name="complete"
-                    value="complete"
-                    title="complete"
-                  />
-                  <label for="complete"> </label>
-                </div>
-                <div><ion-icon name="trash-outline"></ion-icon></div>
-              </div>
-              <div class="content-rows content">
-                <div>name</div>
-                <div><ion-icon name="create-outline"></ion-icon></div>
-                <div><div class="status">pending</div></div>
-                <div>due date</div>
-                <div>
-                  <label for="cars">User:</label>
-
-                  <select name="cars" id="cars">
-                    <option value="audi">Audi</option>
-                  </select>
-                </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="complete"
-                    name="complete"
-                    value="complete"
-                    title="complete"
-                  />
-                  <label for="complete"> </label>
-                </div>
-                <div><ion-icon name="trash-outline"></ion-icon></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="right-body">
-          <div class="userlist-title"><p>List of Users</p></div>
-          <div class="userlist-content"></div>
+        <a class="navbar-brand" href="#">Admin Dashboard</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav" style="margin-left: auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="logout-button"> Logout </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Profile</a>
+            </li>
+          </ul>
         </div>
       </div>
-    </main>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="mb-3 d-flex justify-content-between">
+                <h1 class="text-center">My Projects</h1>
+                <div>
+                  <button class="btn btn-success" style="flex-grow: 1">
+                    Create a Project
+                  </button>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <div class="">
+                  <div class="row gy-4 product-content"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card mt-3">
+            <div class="card-body">
+              <h5 class="card-title">List of Users</h5>
+              <div class="userlist-content">
+                <!-- Populate user list here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Add this code to your existing HTML file -->
+    <div
+      class="modal fade"
+      id="editProjectModal"
+      tabindex="-1"
+      aria-labelledby="editProjectModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editProjectModalLabel">Edit Project</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="editProjectForm">
+              <div class="mb-3">
+                <label for="editProjectName" class="form-label"
+                  >Project Name</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editProjectName"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editProjectDescription" class="form-label"
+                  >Project Description</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editProjectDescription"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editProjectDueDate" class="form-label"
+                  >Due Date</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  id="editProjectDueDate"
+                  required
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="editProjectSubmit"
+            >
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -236,5 +164,6 @@
       nomodule
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
+    <script src="../dist/admin.js"></script>
   </body>
 </html>
