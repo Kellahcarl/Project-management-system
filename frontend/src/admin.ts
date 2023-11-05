@@ -1,17 +1,14 @@
-// Define a function to check if the user is authenticated
 const isAuthenticated = (): boolean => {
   const token = localStorage.getItem("token");
   return !!token;
 };
 
-// Function to handle user logout
 const logoutUser = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user_email");
   location.href = "../pages/login.html";
 };
 
-// Function to fetch projects from the API
 const fetchProjects = async () => {
   try {
     const response = await fetch("http://localhost:3550/project");
@@ -26,7 +23,6 @@ const fetchProjects = async () => {
   }
 };
 
-// Function to display projects in the "product-content" element
 const displayProjects = (projects: any[]) => {
   const productContent = document.querySelector(".product-content");
   if (!productContent) {
@@ -55,20 +51,18 @@ const displayProjects = (projects: any[]) => {
               <div class="card-text text-center">
                 <span class="text-center"> Status : ${project.project_status} </span>
               </div>
-              <div class="card-text text-center">
-                <span > Mark as complete </span>
-                <input type="checkbox" class="form-check-input" style="width: 1.5em; height: 1.5em;" />
-              </div>
               
-              <div style="display: flex;  flex-direction: row; gap: 10px; width: 100%; margin-top: 10px">
-                <button class="btn btn-primary" style="flex-grow: 1;">Edit</button>
+              
+              <div style="display: flex;  flex-direction: row; justify-content :center ; gap: 10px; width: 100%; margin-top: 10px">
                 
-                <button class="btn btn-danger" style="flex-grow: 1;">Delete</button>
+                <ion-icon class="btn btn-primary "name="create-outline" id="editBtn" data-id="${project.project_id}"></ion-icon>
+                <ion-icon class="btn btn-danger" id ="deleteBtn" data-id="${project.project_id}" onclick = deleteProject('${project.project_id}') name="trash-outline"></ion-icon>
+                
               </div>
               
               <div style="display: flex; flex-direction: row; gap: 10px; width: 100%; margin-top: 10px;">
-                <button class="btn btn-info" style="flex-grow: 1;">Assign</button>
-                <button class="btn btn-warning" style="flex-grow: 1;">Unassign</button>
+                <button class="btn btn-info" data-id="${project.project_id}" style="flex-grow: 1;">Assign</button>
+                <button class="btn btn-warning" data-id="${project.project_id}" style="flex-grow: 1;">Unassign</button>
               </div>
             </div>
           </div>
@@ -80,7 +74,6 @@ const displayProjects = (projects: any[]) => {
   productContent.innerHTML = html;
 };
 
-// Function to fetch users from the API
 const fetchUsers = async () => {
   const token = localStorage.getItem("token");
   if (!token) {
@@ -105,7 +98,6 @@ const fetchUsers = async () => {
   }
 };
 
-// Function to display users in the "userlist-content" element
 const displayUsers = (users: any[]) => {
   const userlistContent = document.querySelector(".userlist-content");
   if (!userlistContent) {
@@ -136,96 +128,66 @@ const displayUsers = (users: any[]) => {
   userlistContent.innerHTML = html;
 };
 
-// Add an event listener to fetch and display projects and users when the DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  // Check if the user is authenticated
   if (!isAuthenticated()) {
-    location.href = "../pages/login.html"; // Redirect to login if not authenticated
+    location.href = "../pages/login.html";
   }
 
-  fetchProjects(); // Fetch and display projects
-  fetchUsers(); // Fetch and display users
+  fetchProjects(); //
+  fetchUsers(); //
 
-  // Add a click event listener to the logout button
   const logoutButton = document.getElementById("logout-button");
   if (logoutButton) {
     logoutButton.addEventListener("click", () => {
-      logoutUser(); // Logout the user when the button is clicked
+      logoutUser();
     });
   }
 });
 
-// Add this code to your existing TypeScript file
+setTimeout(() => {
+  let editBtns = document.querySelectorAll(
+    "#editBtn"
+  ) as NodeListOf<HTMLButtonElement>;
+  let deleteBtns = document.querySelectorAll("#deleteBtn");
 
-interface Project {
-  project_id: string;
-  project_name: string;
-  project_description: string;
-  dueDate: string;  
-}
-// Function to open the Edit Project modal with project data
-const openEditProjectModal = (project : Project) => {
+  editBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const project_id = btn.getAttribute("data-id");
 
- 
-  const editProjectModal = new bootstrap.Modal(document.getElementById("editProjectModal")!);
-  const editProjectForm = document.getElementById("editProjectForm") as HTMLFormElement;
-  const editProjectName = document.getElementById("editProjectName") as HTMLInputElement;
-  const editProjectDescription = document.getElementById("editProjectDescription") as HTMLInputElement;
-  const editProjectDueDate = document.getElementById("editProjectDueDate") as HTMLInputElement;
+      if (project_id) {
+        localStorage.setItem("project_id", project_id);
 
-  // Fill the form with project data
-  editProjectName.value = project.project_name;
-  editProjectDescription.value = project.project_description;
-  editProjectDueDate.value = project.dueDate;
-
-  // Define a function to update the project
-  const updateProject = async () => {
-    try {
-      const response = await fetch("http://localhost:3550/project", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          project_id: project.project_id,
-          project_name: editProjectName.value,
-          project_description: editProjectDescription.value,
-          dueDate: editProjectDueDate.value,
-        }),
-      });
-      if (response.ok) {
-        // Display a success message here
-        console.log("Project updated successfully");
-
-        // Close the modal
-        editProjectModal.hide();
-
-        // Fetch and display updated projects
-        fetchProjects();
-      } else {
-        // Handle error cases
-        console.error("Failed to update project");
+        location.href = "updateProject.html";
       }
-    } catch (error) {
-      console.error(error);
+    });
+  });
+}, 1000);
+
+async function deleteProject(project_id: string) {
+  try {
+    console.log("here");
+    if (project_id) {
+      const confirmDelete = confirm(
+        "Are you sure you want to delete this project?"
+      );
+
+      if (confirmDelete) {
+        const response = await fetch(
+          `http://localhost:3550/project/${project_id}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        if (response.ok) {
+          console.log("Project deleted successfully.");
+          fetchProjects();
+        } else {
+          console.error("Failed to delete the project.");
+        }
+      }
     }
-  };
-
-  // Add a click event listener to the "Save Changes" button
-  document.getElementById("editProjectSubmit")?.addEventListener("click", updateProject);
-
-  // Show the Edit Project modal
-  editProjectModal.show();
-};
-
-// Add a click event listener to the "Edit" button on project cards
-document.addEventListener("click", (event) => {
-  if (event.target?.classList.contains("btn-primary")) {
-    const projectId = event.target.closest(".features-card").getAttribute("data-id");
-    const project = projects.find((p) => p.project_id === projectId);
-    if (project) {
-      openEditProjectModal(project);
-    }
+  } catch (error) {
+    console.error(error);
   }
-});
-
+}
