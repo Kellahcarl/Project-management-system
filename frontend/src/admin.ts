@@ -19,7 +19,6 @@ const fetchProjects = async () => {
       throw new Error("Failed to fetch projects.");
     }
     const data = await response.json();
-    console.log(data);
 
     displayProjects(data);
   } catch (error) {
@@ -67,7 +66,6 @@ const displayProjects = (projects: any[]) => {
                 <button class="btn btn-danger" style="flex-grow: 1;">Delete</button>
               </div>
               
-              
               <div style="display: flex; flex-direction: row; gap: 10px; width: 100%; margin-top: 10px;">
                 <button class="btn btn-info" style="flex-grow: 1;">Assign</button>
                 <button class="btn btn-warning" style="flex-grow: 1;">Unassign</button>
@@ -82,7 +80,63 @@ const displayProjects = (projects: any[]) => {
   productContent.innerHTML = html;
 };
 
-// Add an event listener to fetch and display projects when the DOM is loaded
+// Function to fetch users from the API
+const fetchUsers = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    console.error("Token not found.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:3550/user", {
+      headers: {
+        Token: ` ${token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch users.");
+    }
+    const data = await response.json();
+
+    displayUsers(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// Function to display users in the "userlist-content" element
+const displayUsers = (users: any[]) => {
+  const userlistContent = document.querySelector(".userlist-content");
+  if (!userlistContent) {
+    console.error("userlist-content element not found.");
+    return;
+  }
+
+  const html = users
+    .map((user) => {
+      return `
+        <div class="user-card card shadow mb-2" data-id="${user.user_id}">
+          <div class="user-card-content card-body">
+            <div class="user-card-title card-title text-center h4 fw-normal mb-3">
+              Username : ${user.username}
+            </div>
+            <div class="user-card-text text-center card-text">
+              ${user.email}
+            </div>
+            <div class="user-card-status text-center card-text">
+              Status: ${user.isAdmin ? "Admin" : "User"}
+            </div>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+
+  userlistContent.innerHTML = html;
+};
+
+// Add an event listener to fetch and display projects and users when the DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
   // Check if the user is authenticated
   if (!isAuthenticated()) {
@@ -90,6 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   fetchProjects(); // Fetch and display projects
+  fetchUsers(); // Fetch and display users
 
   // Add a click event listener to the logout button
   const logoutButton = document.getElementById("logout-button");
