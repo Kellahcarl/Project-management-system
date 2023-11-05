@@ -39,22 +39,38 @@ const displayProjects = (projects: any[]) => {
     .map((project) => {
       const dueDate = new Date(project.dueDate);
       const formattedDate = dueDate.toISOString().split("T")[0];
-      
+
       return `
-        <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+        <div class="col-12 col-md-6 col-lg-6 ">
           <div class="card shadow features-card" data-id="${project.project_id}">
-            <div class="card-body">
-              <div class="card-title text-center h3 fw-normal  mb-3">
+            <div class="card-body" style="display: flex; flex-direction: column; align-items: center;">
+              <div class="card-title text-center h3 fw-normal mb-3">
                 ${project.project_name}
               </div>
               <div class="card-text text-center">
-                <span class=" text-center">${project.project_description}</span>
+                <span class="text-center">${project.project_description}</span>
               </div>
               <div class="card-text text-center">
-                <span class=" text-center"> Due by: ${formattedDate}</span>
+                <span class="text-center"> Due by: ${formattedDate}</span>
               </div>
               <div class="card-text text-center">
-                <span class=" text-center"> Status : ${project.project_status} </span>
+                <span class="text-center"> Status : ${project.project_status} </span>
+              </div>
+              <div class="card-text text-center">
+                <span > Mark as complete </span>
+                <input type="checkbox" class="form-check-input" style="width: 1.5em; height: 1.5em;" />
+              </div>
+              
+              <div style="display: flex;  flex-direction: row; gap: 10px; width: 100%; margin-top: 10px">
+                <button class="btn btn-primary" style="flex-grow: 1;">Edit</button>
+                
+                <button class="btn btn-danger" style="flex-grow: 1;">Delete</button>
+              </div>
+              
+              
+              <div style="display: flex; flex-direction: row; gap: 10px; width: 100%; margin-top: 10px;">
+                <button class="btn btn-info" style="flex-grow: 1;">Assign</button>
+                <button class="btn btn-warning" style="flex-grow: 1;">Unassign</button>
               </div>
             </div>
           </div>
