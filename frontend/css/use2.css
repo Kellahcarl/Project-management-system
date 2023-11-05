@@ -1,0 +1,46 @@
+
+body {
+    background-color: darkgray;
+  }
+  
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .left-elements {
+    display: flex;
+  }
+  
+  .left-nav-elements {
+    margin-right: 20px;
+  }
+  
+
+  .right-elements {
+    display: flex;
+  }
+  
+  .right-nav-element {
+    margin-left: 20px;
+  }
+  
+
+  nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
+  
+
+  .container {
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
