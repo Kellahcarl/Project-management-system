@@ -19,16 +19,6 @@ get http://localhost:3550/project
 get http://localhost:3550/project/c34abadd-d075-4606-acd0-5e4ef96b3f57
 
 
-####login user
-
-post http://localhost:3550/user/login
-Content-Type: application/json
-
-{
-    
-    "email":"silvia3@thejitu.com",
-    "password": "@Sylvia433"
-}
 #####update project
 
 put http://localhost:3550/project

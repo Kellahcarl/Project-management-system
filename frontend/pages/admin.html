@@ -75,6 +75,81 @@
         </div>
       </div>
     </div>
+    <!-- Add this code to your existing HTML file -->
+    <div
+      class="modal fade"
+      id="editProjectModal"
+      tabindex="-1"
+      aria-labelledby="editProjectModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editProjectModalLabel">Edit Project</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="editProjectForm">
+              <div class="mb-3">
+                <label for="editProjectName" class="form-label"
+                  >Project Name</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editProjectName"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editProjectDescription" class="form-label"
+                  >Project Description</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editProjectDescription"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editProjectDueDate" class="form-label"
+                  >Due Date</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  id="editProjectDueDate"
+                  required
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="editProjectSubmit"
+            >
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

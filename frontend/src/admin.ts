@@ -154,3 +154,78 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// Add this code to your existing TypeScript file
+
+interface Project {
+  project_id: string;
+  project_name: string;
+  project_description: string;
+  dueDate: string;  
+}
+// Function to open the Edit Project modal with project data
+const openEditProjectModal = (project : Project) => {
+
+ 
+  const editProjectModal = new bootstrap.Modal(document.getElementById("editProjectModal")!);
+  const editProjectForm = document.getElementById("editProjectForm") as HTMLFormElement;
+  const editProjectName = document.getElementById("editProjectName") as HTMLInputElement;
+  const editProjectDescription = document.getElementById("editProjectDescription") as HTMLInputElement;
+  const editProjectDueDate = document.getElementById("editProjectDueDate") as HTMLInputElement;
+
+  // Fill the form with project data
+  editProjectName.value = project.project_name;
+  editProjectDescription.value = project.project_description;
+  editProjectDueDate.value = project.dueDate;
+
+  // Define a function to update the project
+  const updateProject = async () => {
+    try {
+      const response = await fetch("http://localhost:3550/project", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          project_id: project.project_id,
+          project_name: editProjectName.value,
+          project_description: editProjectDescription.value,
+          dueDate: editProjectDueDate.value,
+        }),
+      });
+      if (response.ok) {
+        // Display a success message here
+        console.log("Project updated successfully");
+
+        // Close the modal
+        editProjectModal.hide();
+
+        // Fetch and display updated projects
+        fetchProjects();
+      } else {
+        // Handle error cases
+        console.error("Failed to update project");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Add a click event listener to the "Save Changes" button
+  document.getElementById("editProjectSubmit")?.addEventListener("click", updateProject);
+
+  // Show the Edit Project modal
+  editProjectModal.show();
+};
+
+// Add a click event listener to the "Edit" button on project cards
+document.addEventListener("click", (event) => {
+  if (event.target?.classList.contains("btn-primary")) {
+    const projectId = event.target.closest(".features-card").getAttribute("data-id");
+    const project = projects.find((p) => p.project_id === projectId);
+    if (project) {
+      openEditProjectModal(project);
+    }
+  }
+});
+
