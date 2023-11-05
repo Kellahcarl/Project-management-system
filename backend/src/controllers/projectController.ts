@@ -44,9 +44,7 @@ export const updateProject = async (req: Request, res: Response) => {
 
     const { error } = validateUpdateProject.validate(req.body);
     if (error)
-      return res
-        .status(400)
-        .send({ success: false, message: "please put correct details" });
+      return res.status(400).send({ message: "please put correct details" });
 
     const newProject: Project = {
       project_id,
@@ -60,7 +58,7 @@ export const updateProject = async (req: Request, res: Response) => {
 
     await execute(ProcedureName, params);
 
-    return res.send({ message: "User updated successfully" });
+    return res.status(200).send({ message: "Project updated successfully" });
   } catch (error) {
     console.log(error);
     res.status(500).send({

@@ -56,10 +56,11 @@ const displayProjects = (projects: any[]) => {
                 <input type="checkbox" data-id="${project.project_id}" class="form-check-input" style="width: 1.5em; height: 1.5em;" />
               </div>
               
-              <div style="display: flex;  flex-direction: row; gap: 10px; width: 100%; margin-top: 10px">
-                <button class="btn btn-primary " id="editBtn" data-id="${project.project_id}" style="flex-grow: 1;">Edit</button>
+              <div style="display: flex;  flex-direction: row; justify-content :center ; gap: 10px; width: 100%; margin-top: 10px">
                 
-                <button class="btn btn-danger" data-id="${project.project_id}" style="flex-grow: 1;">Delete</button>
+                <ion-icon class="btn btn-primary "name="create-outline" id="editBtn" data-id="${project.project_id}"></ion-icon>
+                <ion-icon class="btn btn-danger" id ="deleteBtn" data-id="${project.project_id}" onclick = deleteProject('${project.project_id}') name="trash-outline"></ion-icon>
+                
               </div>
               
               <div style="display: flex; flex-direction: row; gap: 10px; width: 100%; margin-top: 10px;">
@@ -150,18 +151,46 @@ setTimeout(() => {
   let editBtns = document.querySelectorAll(
     "#editBtn"
   ) as NodeListOf<HTMLButtonElement>;
+  let deleteBtns = document.querySelectorAll("#deleteBtn");
 
-  editBtns.forEach((btn, index) => {
+  editBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
-      console.log(index);
-
       const project_id = btn.getAttribute("data-id");
 
       if (project_id) {
-        localStorage.setItem("Project_id", project_id);
+        localStorage.setItem("project_id", project_id);
 
         location.href = "updateProject.html";
       }
     });
   });
 }, 1000);
+
+async function deleteProject(project_id: string) {
+  try {
+    console.log("here");
+    if (project_id) {
+      const confirmDelete = confirm(
+        "Are you sure you want to delete this project?"
+      );
+
+      if (confirmDelete) {
+        const response = await fetch(
+          `http://localhost:3550/project/${project_id}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        if (response.ok) {
+          console.log("Project deleted successfully.");
+          fetchProjects();
+        } else {
+          console.error("Failed to delete the project.");
+        }
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
