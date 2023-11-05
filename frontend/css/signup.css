@@ -1,67 +1,66 @@
 body {
-    font-family: 'Open Sans', sans-serif;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background: url('\\frontend\\images\\sarah-dorweiler-x2Tmfd1-SgA-unsplash.jpg') no-repeat center center fixed;
-    background-size: cover;
-  }
-  
-  .main {
-    display: flex;
-    justify-content: flex-end; 
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-  }
-  
-  .create_acc {
-    display: flex;
-    flex-direction: column;
-    width: 30%;
-    padding: 10px;
-    background-color:rgb(247, 230, 230);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px; 
-    height: 90vh; 
-    margin-right: 200px;
-  }
-  
-  #sign_in {
-    margin-top: 20px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-  }
-  
-  #sign_in p {
-    margin: 0;
-  }
-  
-  .form_input {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .form_input input {
-    width: 70%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  #sign-up-btn {
-    width: 70%;
-    padding: 10px;
-    background-color: #4c9aff;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  #sign-up-btn:hover {
-    background-color: #3b7fcd;
-  }
-  
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: url('\\frontend\\images\\sarah-dorweiler-x2Tmfd1-SgA-unsplash.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.main {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+}
+
+.create_acc {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  padding: 10px;
+  background-color: rgb(247, 230, 230);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  height: 70vh; /* Reduced height to 70vh */
+ margin-left: 1000px;
+}
+
+#sign_in {
+  margin-top: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#sign_in p {
+  margin: 0;
+}
+
+.form_input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form_input input {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#sign-up-btn {
+  width: 70%;
+  padding: 10px;
+  background-color: #4c9aff;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#sign-up-btn:hover {
+  background-color: #3b7fcd;
+}
