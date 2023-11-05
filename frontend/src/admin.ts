@@ -1,17 +1,14 @@
-// Define a function to check if the user is authenticated
 const isAuthenticated = (): boolean => {
   const token = localStorage.getItem("token");
   return !!token;
 };
 
-// Function to handle user logout
 const logoutUser = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user_email");
   location.href = "../pages/login.html";
 };
 
-// Function to fetch projects from the API
 const fetchProjects = async () => {
   try {
     const response = await fetch("http://localhost:3550/project");
@@ -26,7 +23,6 @@ const fetchProjects = async () => {
   }
 };
 
-// Function to display projects in the "product-content" element
 const displayProjects = (projects: any[]) => {
   const productContent = document.querySelector(".product-content");
   if (!productContent) {
@@ -57,18 +53,18 @@ const displayProjects = (projects: any[]) => {
               </div>
               <div class="card-text text-center">
                 <span > Mark as complete </span>
-                <input type="checkbox" class="form-check-input" style="width: 1.5em; height: 1.5em;" />
+                <input type="checkbox" data-id="${project.project_id}" class="form-check-input" style="width: 1.5em; height: 1.5em;" />
               </div>
               
               <div style="display: flex;  flex-direction: row; gap: 10px; width: 100%; margin-top: 10px">
-                <button class="btn btn-primary" style="flex-grow: 1;">Edit</button>
+                <button class="btn btn-primary " id="editBtn" data-id="${project.project_id}" style="flex-grow: 1;">Edit</button>
                 
-                <button class="btn btn-danger" style="flex-grow: 1;">Delete</button>
+                <button class="btn btn-danger" data-id="${project.project_id}" style="flex-grow: 1;">Delete</button>
               </div>
               
               <div style="display: flex; flex-direction: row; gap: 10px; width: 100%; margin-top: 10px;">
-                <button class="btn btn-info" style="flex-grow: 1;">Assign</button>
-                <button class="btn btn-warning" style="flex-grow: 1;">Unassign</button>
+                <button class="btn btn-info" data-id="${project.project_id}" style="flex-grow: 1;">Assign</button>
+                <button class="btn btn-warning" data-id="${project.project_id}" style="flex-grow: 1;">Unassign</button>
               </div>
             </div>
           </div>
@@ -80,7 +76,6 @@ const displayProjects = (projects: any[]) => {
   productContent.innerHTML = html;
 };
 
-// Function to fetch users from the API
 const fetchUsers = async () => {
   const token = localStorage.getItem("token");
   if (!token) {
@@ -105,7 +100,6 @@ const fetchUsers = async () => {
   }
 };
 
-// Function to display users in the "userlist-content" element
 const displayUsers = (users: any[]) => {
   const userlistContent = document.querySelector(".userlist-content");
   if (!userlistContent) {
@@ -136,21 +130,38 @@ const displayUsers = (users: any[]) => {
   userlistContent.innerHTML = html;
 };
 
-// Add an event listener to fetch and display projects and users when the DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  // Check if the user is authenticated
   if (!isAuthenticated()) {
-    location.href = "../pages/login.html"; // Redirect to login if not authenticated
+    location.href = "../pages/login.html";
   }
 
-  fetchProjects(); // Fetch and display projects
-  fetchUsers(); // Fetch and display users
+  fetchProjects(); //
+  fetchUsers(); //
 
-  // Add a click event listener to the logout button
   const logoutButton = document.getElementById("logout-button");
   if (logoutButton) {
     logoutButton.addEventListener("click", () => {
-      logoutUser(); // Logout the user when the button is clicked
+      logoutUser();
     });
   }
 });
+
+setTimeout(() => {
+  let editBtns = document.querySelectorAll(
+    "#editBtn"
+  ) as NodeListOf<HTMLButtonElement>;
+
+  editBtns.forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+      console.log(index);
+
+      const project_id = btn.getAttribute("data-id");
+
+      if (project_id) {
+        localStorage.setItem("Project_id", project_id);
+
+        location.href = "updateProject.html";
+      }
+    });
+  });
+}, 1000);
