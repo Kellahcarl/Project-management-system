@@ -1,15 +1,17 @@
 body {
+    font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
     font-family: Arial, sans-serif;
-    background-color: #f4f7fc; /* Adjusted background color to match colors */
+    background: url('\\frontend\\images\\sarah-dorweiler-x2Tmfd1-SgA-unsplash.jpg') no-repeat center center fixed;
+    background-size: cover;
   }
   
   .main {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end; 
     align-items: center;
     height: 100vh;
     width: 100vw;
@@ -18,16 +20,18 @@ body {
   .create_acc {
     display: flex;
     flex-direction: column;
-    width: 30%; /* Set width to match right div */
-    padding: 20px;
-    background-color: white;
+    width: 30%;
+    padding: 10px;
+    background-color:rgb(247, 230, 230);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    margin-right: 20px; /* Added margin */
+    border-radius: 10px; 
+    height: 90vh; 
+    margin-right: 200px;
   }
   
   #sign_in {
-    margin-bottom: 20px;
+    margin-top: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
   
   #sign_in p {
@@ -41,15 +45,14 @@ body {
   }
   
   .form_input input {
-    width: 80%;
+    width: 70%;
     padding: 10px;
-    margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
   
   #sign-up-btn {
-    width: 80%;
+    width: 70%;
     padding: 10px;
     background-color: #4c9aff;
     border: none;
@@ -60,17 +63,5 @@ body {
   
   #sign-up-btn:hover {
     background-color: #3b7fcd;
-  }
-  
-  .blue_background {
-    width: 30%; /* Set width to match left div */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .blue_background img {
-    width: 100%; /* Set width to 100% to fill the div */
-    border-radius: 10px;
   }
   
