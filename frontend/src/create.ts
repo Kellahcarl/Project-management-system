@@ -50,21 +50,22 @@ function updateCalendar() {
 
 updateCalendar();
 
-document.getElementById('create-btn')!.addEventListener('click', function(event) {
+document.getElementById('form')!.addEventListener('submit', function(event) {
     event.preventDefault();
 
     const projectName = (document.getElementById('create-name-input') as HTMLInputElement).value;
     const projectDescription = (document.getElementById('desc-input') as HTMLInputElement).value;
     const dueDate = (document.getElementById('selected-date') as HTMLInputElement).value;
+    const buttonClicked = (event.submitter as HTMLButtonElement).innerText.toLowerCase();
 
-    if ((event.target as HTMLElement).innerText === 'create') {
+    if (buttonClicked === 'create') {
         if (projectName !== '') {
             const projectDiv = document.getElementById('created')!;
             const projectElement = document.createElement('div');
             projectElement.innerText = projectName;
             projectDiv.appendChild(projectElement);
         }
-    } else if ((event.target as HTMLElement).innerText === 'cancel') {
+    } else if (buttonClicked === 'cancel') {
         (document.getElementById('create-name-input') as HTMLInputElement).value = '';
         (document.getElementById('desc-input') as HTMLInputElement).value = '';
         (document.getElementById('selected-date') as HTMLInputElement).value = '';
