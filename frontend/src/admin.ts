@@ -51,10 +51,7 @@ const displayProjects = (projects: any[]) => {
               <div class="card-text text-center">
                 <span class="text-center"> Status : ${project.project_status} </span>
               </div>
-              <div class="card-text text-center">
-                <span > Mark as complete </span>
-                <input type="checkbox" data-id="${project.project_id}" class="form-check-input" style="width: 1.5em; height: 1.5em;" />
-              </div>
+              
               
               <div style="display: flex;  flex-direction: row; justify-content :center ; gap: 10px; width: 100%; margin-top: 10px">
                 
