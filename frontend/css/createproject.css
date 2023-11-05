@@ -1,5 +1,6 @@
 body{
     overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .main{
@@ -10,15 +11,17 @@ body{
 .project-list{
     width: 20vw;
     height: 100vh;
-    background-color: rgb(212, 231, 231);
+    background-color: whitesmoke;
     display: flex;
     flex-direction: column;
 
 }
 #projects{
-    height: 45VH;
+    height: 40vh;
 }
-
+#usersAvailable{
+    height: 40vh;
+}
 .new-project{
     width: 70vw;
     /* background-color: rgb(16, 246, 250); */
@@ -29,18 +32,18 @@ body{
 }
 .heading{
     margin-left: 200px;
+
 }
 #create-name-input{
     width: 70vw;
     height: 30px;
-    border: 2px solid cyan;
-    margin-bottom: 10px;
+    border: 2px solid rgb(209, 247, 247);
 }
 #desc-input{
     width: 70vw;
-    height: 100px;
-    background-color: rgb(248, 241, 247);
-    margin-bottom: 30px;
+    height: 70px;
+    background-color: whitesmoke;
+    margin-bottom: 10px;
     border: none;
 }
 .date{
