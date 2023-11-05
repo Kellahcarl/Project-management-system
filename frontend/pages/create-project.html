@@ -9,15 +9,18 @@
 <body>
     <div class="main">
         <div class="project-list">
+            <div id="projects">
             <p>List of Projects</p>
-            <p><b>Availabe users </b></p>
-
+            <div id="created"></div>
+            </div>
+            <div id="usersAvailable"><p><b>Availabe users </b></p>
+            </div>
         </div>
 
         <div class="new-project">
             <div class="heading">
                 <h3>Create a project</h3>
-                <p>Fortunately, its easy to vreate new one</p>
+                <p>Fortunately, its easy to create new one</p>
             </div>
 
             <div class="create-new-project">
@@ -66,58 +69,8 @@
         </div>
     </div>
     
-    <script>
- let currentMonth = new Date().getMonth();
-let currentYear = new Date().getFullYear();
-
-document.getElementById('current-month-year').innerText = new Date(currentYear, currentMonth).toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
-
-document.getElementById('prev-month').addEventListener('click', function() {
-    if (currentMonth === 0) {
-        currentMonth = 11;
-        currentYear--;
-    } else {
-        currentMonth--;
-    }
-    updateCalendar();
-});
-
-document.getElementById('next-month').addEventListener('click', function() {
-    if (currentMonth === 11) {
-        currentMonth = 0;
-        currentYear++;
-    } else {
-        currentMonth++;
-    }
-    updateCalendar();
-});
-
-function updateCalendar() {
-    document.getElementById('current-month-year').innerText = new Date(currentYear, currentMonth).toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
-
-    const daysContainer = document.getElementById('days-of-month');
-    daysContainer.innerHTML = '';
-
-    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-    const lastDay = new Date(currentYear, currentMonth + 1, 0).getDate();
-
-    for (let i = 0; i < firstDay; i++) {
-        const day = document.createElement('span');
-        day.innerText = '';
-        daysContainer.appendChild(day);
-    }
-
-    for (let i = 1; i <= lastDay; i++) {
-        const day = document.createElement('span');
-        day.innerText = i;
-        day.addEventListener('click', function() {
-            document.getElementById('selected-date').value = new Date(currentYear, currentMonth, i).toLocaleDateString();
-        });
-        daysContainer.appendChild(day);
-    }
-}
-
-updateCalendar();
+    <script src="../javascript/createpage.js">
+ 
 
       </script>
 </body>

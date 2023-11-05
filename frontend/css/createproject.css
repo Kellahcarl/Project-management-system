@@ -1,3 +1,7 @@
+body{
+    overflow: hidden;
+}
+
 .main{
     display: flex;
     flex-wrap: wrap;
@@ -7,15 +11,21 @@
     width: 20vw;
     height: 100vh;
     background-color: rgb(212, 231, 231);
+    display: flex;
+    flex-direction: column;
 
 }
+#projects{
+    height: 45VH;
+}
+
 .new-project{
     width: 70vw;
     /* background-color: rgb(16, 246, 250); */
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    padding: 30px;
+    padding: 20px;
 }
 .heading{
     margin-left: 200px;
@@ -24,7 +34,7 @@
     width: 70vw;
     height: 30px;
     border: 2px solid cyan;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 #desc-input{
     width: 70vw;
@@ -40,9 +50,10 @@
     
 }
 #create-btn{
-    height: 30px;
+    height: 35px;
+    width:150px;
     display: flex;
-    margin-top: 200px;
+    margin-top: 150px;
     margin-left: 700px;
     gap: 10px;
     border: none;
@@ -120,6 +131,7 @@ button:hover{
 #selected-date{
      border: 2px solis cyan;
 }
+
 
 
 
