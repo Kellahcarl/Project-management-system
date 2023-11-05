@@ -40,44 +40,40 @@
       </div>
     </nav>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8">
-          <div class="row mt-4">
-            <div class="col-12">
-              <div class="mb-3 d-flex justify-content-between">
-                <h1 class="text-center">My Projects</h1>
-                <div>
-                  <button
-                    class="btn btn-success"
-                    id="createProject"
-                    style="flex-grow: 1"
-                  >
-                    Create a Project
-                  </button>
-                </div>
-              </div>
-
-              <div class="d-flex justify-content-between">
-                <div class="">
-                  <div class="row gy-4 product-content"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div
+      class="container-fluid d-flex justify-content-center align-items-center vh-100"
+    >
+      <form id="createProjectForm" class="w-50">
+        <div class="form-group mt-3">
+          <label for="project_name">Project Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="project_name"
+            placeholder="Enter project name"
+          />
         </div>
 
-        <div class="col-lg-4">
-          <div class="card mt-3">
-            <div class="card-body">
-              <h5 class="card-title">List of Users</h5>
-              <div class="userlist-content">
-                <!-- Populate user list here -->
-              </div>
-            </div>
+        <div class="form-group">
+          <label for="project_description">Project Description</label>
+          <textarea
+            class="form-control"
+            id="project_description"
+            rows="3"
+          ></textarea>
+          <div class="form-group">
+            <label class="control-label" for="date">Date</label>
+            <input
+              class="form-control"
+              id="dueDate"
+              name="date"
+              placeholder="MM/DD/YYYY"
+              type="text"
+            />
           </div>
         </div>
-      </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
 
     <script
@@ -85,14 +81,7 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
-    <script src="../dist/admin.js"></script>
+
+    <script src="../dist/createProject.js"></script>
   </body>
 </html>
