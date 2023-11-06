@@ -1,7 +1,12 @@
 body{
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
+    background-image: url('https://images.pexels.com/photos/1831234/pexels-photo-1831234.jpeg?auto=compress&cs=tinysrgb&w=600');;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
+
 
 .main{
     display: flex;
@@ -29,6 +34,7 @@ body{
     flex-direction: column;
     flex-wrap: wrap;
     padding: 20px;
+    margin-left: 100px;
 }
 .heading{
     margin-left: 200px;
