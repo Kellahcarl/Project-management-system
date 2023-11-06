@@ -56,14 +56,31 @@
             justify-content: space-evenly;
           "
         >
-          <h5 class="card-title">Project name</h5>
-          <p class="card-text">project Description</p>
-          <p class="card-text">Due Date</p>
+          <h5 class="card-title h1">Project name</h5>
+          <p class="card-text h3">project Description</p>
+          <p class="card-text h6">Due Date</p>
+          <p class="card-text h6">Status</p>
 
-          <div>
-            <button class="btn btn-secondary">Not Started</button>
+          <div
+            style="
+              display: flex;
+              flex-direction: row;
+              justify-content: space-evenly;
+            "
+          >
             <button class="btn btn-warning">In Progress</button>
-            <button class="btn btn-success">Complete</button>
+            <!-- <button class="btn btn-success">Complete</button> -->
+
+            <div class="input-group-prepend">
+              <div class="input-group-text btn btn-success">
+                <label for="checkbox" class="mx-2">Complete </label>
+                <input
+                  class="btn btn-success"
+                  type="checkbox"
+                  aria-label="Checkbox for following text input"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

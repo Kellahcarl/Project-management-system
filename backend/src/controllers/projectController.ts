@@ -93,15 +93,42 @@ export const deleteProject = async (req: Request, res: Response) => {
   }
 };
 export const completeProject = async (req: Request, res: Response) => {
-  const project_id = req.params.project_id;
-  // console.log(project_id);
+  try {
+    const project_id = req.params.project_id;
+    // console.log(project_id);
 
-  if (!project_id) return res.status(400).send({ message: "Id is required" });
+    if (!project_id) return res.status(400).send({ message: "Id is required" });
 
-  const procedureName = "completeProject";
-  await execute(procedureName, { project_id });
+    const procedureName = "completeProject";
+    await execute(procedureName, { project_id });
 
-  res.status(201).send({ message: "Project completed Successfully" });
+    res.status(201).send({ message: "Project completed Successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      error: (error as Error).message,
+      message: "Internal Sever Error",
+    });
+  }
+};
+export const inProgressProject = async (req: Request, res: Response) => {
+  try {
+    const project_id = req.params.project_id;
+    // console.log(project_id);
+
+    if (!project_id) return res.status(400).send({ message: "Id is required" });
+
+    const procedureName = "inProgressProject";
+    await execute(procedureName, { project_id });
+
+    res.status(201).send({ message: "Project placed in Progress" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      error: (error as Error).message,
+      message: "Internal Sever Error",
+    });
+  }
 };
 export const getProject = async (req: Request, res: Response) => {
   try {
@@ -184,7 +211,7 @@ export const unassignProject = async (req: Request, res: Response) => {
   try {
     const project_id = req.body.project_id;
 
-    // console.log(project_id);
+    console.log(project_id);
 
     if (!project_id)
       return res.status(400).send({ message: "project Id is required" });
@@ -193,7 +220,7 @@ export const unassignProject = async (req: Request, res: Response) => {
     const params = { project_id };
 
     const result = await execute(procedureName3, params);
-    console.log(result.recordset);
+    // console.log(result.recordset);
 
     if (result.recordset.length === 0)
       return res.status(400).send({ message: "Project already unassigned" });

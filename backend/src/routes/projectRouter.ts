@@ -11,6 +11,7 @@ import {
   getUserAssignedProject,
   unassignProject,
   updateProject,
+  inProgressProject,
 } from "../controllers/projectController";
 
 const project_router = Router();
@@ -20,6 +21,7 @@ project_router.get("/", getProjects);
 project_router.put("/", updateProject);
 
 project_router.get("/complete/:project_id", completeProject);
+project_router.get("/inprogress/:project_id", inProgressProject);
 project_router.get("/complete", createProject);
 project_router.post("/getUserAssignedProjects", getUserAssignedProject);
 project_router.get("/getAssigned", getAssignedProjects);

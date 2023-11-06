@@ -207,7 +207,7 @@ const updateProject = document.getElementById(
 ) as HTMLButtonElement;
 
 updateProject.addEventListener("click", () => {
-  location.href = "../pages/createProject.html";
+  location.href = "../pages/updateProject.html";
 });
 
 const fetchUnassignedUsers = async () => {
@@ -218,7 +218,7 @@ const fetchUnassignedUsers = async () => {
   }
 
   try {
-    const response = await fetch("http://localhost:3550/user", {
+    const response = await fetch("http://localhost:3550/user/unassigned", {
       // code to change to get unassigned users
       method: "GET",
       headers: {
@@ -246,6 +246,7 @@ const fetchUnassignedUsers = async () => {
       // Check if selectUser exists, then populate it
       if (selectUser) {
         populateUnassignedUsersSelect(data, selectUser);
+        // fetchProjects();
       }
     });
   } catch (error) {
@@ -258,17 +259,22 @@ const populateUnassignedUsersSelect = (
   users: any[],
   selectUser: HTMLSelectElement
 ) => {
-  selectUser.innerHTML = "<option selected>assign user</option>";
+  if (users.length === 0) {
+    selectUser.innerHTML = "<option selected>user unavailable</option>";
+    return;
+  } else {
+    selectUser.innerHTML = "<option selected>assign user</option>";
 
-  // Add unassigned users to the select box
-  users.forEach((user) => {
-    const option = document.createElement("option");
-    option.value = user._id;
-    // console.log(user);
+    // Add unassigned users to the select box
+    users.forEach((user) => {
+      const option = document.createElement("option");
+      option.value = user._id;
+      // console.log(user);
 
-    option.textContent = user.username;
-    selectUser.appendChild(option);
-  });
+      option.textContent = user.username;
+      selectUser.appendChild(option);
+    });
+  }
 };
 
 // Function to assign a user to a project
@@ -291,12 +297,14 @@ const assignUserToProject = async (project_id: string, user_id: string) => {
 
     if (!response.ok) {
       console.log("Failed to assign user to the project.");
+      alert("Failed to assign user to the project.");
 
       throw new Error("Failed to assign user to the project.");
     } else {
       const data = await response.json();
       console.log(data.message);
       fetchProjects();
+      fetchUnassignedUsers();
     }
   } catch (error) {
     console.error(error);
@@ -322,6 +330,8 @@ const unassignUserFromProject = async (project_id: string) => {
 
     if (!response.ok) {
       console.log("Failed to unassign user from the project.");
+
+      alert("user already in progress or unassigned from the project.");
 
       throw new Error("Failed to unassign user from the project.");
     }

@@ -190,13 +190,12 @@ export const deleteUser = async (req: Request, res: Response) => {
 
 export const getUnAssignedUser = async (req: Request, res: Response) => {
    try {
-     const project_id = req.params.body;
+     
      // console.log(id);
-     if (!project_id)
-       return res.status(400).send({ message: "Id is required" });
+     
 
      const procedureName = "getUnassignedUser";
-     const result = await execute(procedureName, { project_id });
+     const result = await query(`EXEC ${procedureName}`);
 
      res.json(result.recordset);
    } catch (error) {

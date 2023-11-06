@@ -8,5 +8,5 @@ begin
 			u.username,
 			u.email,
 			u.isAdmin
-	from	[users] u where isDeleted = 0;
+	from	[users] u where isDeleted = 0 and u.isAdmin = 0
 end;
