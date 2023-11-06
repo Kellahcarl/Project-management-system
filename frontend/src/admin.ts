@@ -17,6 +17,8 @@ const fetchProjects = async () => {
     }
     const data = await response.json();
 
+    console.log(data.message);
+
     displayProjects(data);
   } catch (error) {
     console.error(error);
@@ -61,8 +63,13 @@ const displayProjects = (projects: any[]) => {
               </div>
               
               <div style="display: flex; flex-direction: row; gap: 10px; width: 100%; margin-top: 10px;">
-                <button class="btn btn-info" data-id="${project.project_id}" style="flex-grow: 1;">Assign</button>
-                <button class="btn btn-warning" data-id="${project.project_id}" style="flex-grow: 1;">Unassign</button>
+                <select class="form-select btn btn-info" id="select_user_${project.project_id}" aria-label="Default select example" style="flex-grow: 1;" data-id="${project.project_id}" onchange="handleUserSelection(this)">
+                  <option selected>assign user</option>
+                  <option value="1">One</option>
+                  
+                </select>
+                
+                <button class="btn btn-warning unassign-button" id ="unassignButton" data-id="${project.project_id}" style="flex-grow: 1;" onclick = handleUnassign(this) >Unassign</button>
               </div>
             </div>
           </div>
@@ -133,8 +140,9 @@ document.addEventListener("DOMContentLoaded", () => {
     location.href = "../pages/login.html";
   }
 
-  fetchProjects(); //
-  fetchUsers(); //
+  fetchProjects();
+  fetchUsers();
+  fetchUnassignedUsers();
 
   const logoutButton = document.getElementById("logout-button");
   if (logoutButton) {
@@ -165,7 +173,7 @@ setTimeout(() => {
 
 async function deleteProject(project_id: string) {
   try {
-    console.log("here");
+    // console.log("here");
     if (project_id) {
       const confirmDelete = confirm(
         "Are you sure you want to delete this project?"
@@ -181,6 +189,8 @@ async function deleteProject(project_id: string) {
 
         if (response.ok) {
           console.log("Project deleted successfully.");
+          const data = await response.json();
+          console.log(data.message);
           fetchProjects();
         } else {
           console.error("Failed to delete the project.");
@@ -199,3 +209,166 @@ const updateProject = document.getElementById(
 updateProject.addEventListener("click", () => {
   location.href = "../pages/createProject.html";
 });
+
+const fetchUnassignedUsers = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    console.error("Token not found.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:3550/user", {
+      // code to change to get unassigned users
+      method: "GET",
+      headers: {
+        Token: ` ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      console.log("here");
+
+      throw new Error("Failed to fetch unassigned users.");
+    }
+
+    const data = await response.json();
+    console.log(data.message);
+
+    const projects = document.querySelectorAll(".card.shadow.features-card");
+
+    projects.forEach((project) => {
+      const projectId = project.getAttribute("data-id");
+      const selectUser = document.getElementById(
+        `select_user_${projectId}`
+      ) as HTMLSelectElement;
+
+      // Check if selectUser exists, then populate it
+      if (selectUser) {
+        populateUnassignedUsersSelect(data, selectUser);
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// Function to populate the select box with unassigned users
+const populateUnassignedUsersSelect = (
+  users: any[],
+  selectUser: HTMLSelectElement
+) => {
+  selectUser.innerHTML = "<option selected>assign user</option>";
+
+  // Add unassigned users to the select box
+  users.forEach((user) => {
+    const option = document.createElement("option");
+    option.value = user._id;
+    // console.log(user);
+
+    option.textContent = user.username;
+    selectUser.appendChild(option);
+  });
+};
+
+// Function to assign a user to a project
+const assignUserToProject = async (project_id: string, user_id: string) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    console.error("Token not found.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:3550/project/assign", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Token: ` ${token}`,
+      },
+      body: JSON.stringify({ project_id, user_id }),
+    });
+
+    if (!response.ok) {
+      console.log("Failed to assign user to the project.");
+
+      throw new Error("Failed to assign user to the project.");
+    } else {
+      const data = await response.json();
+      console.log(data.message);
+      fetchProjects();
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const unassignUserFromProject = async (project_id: string) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    console.error("Token not found.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:3550/project/unAssign", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Token: ` ${token}`,
+      },
+      body: JSON.stringify({ project_id }),
+    });
+
+    if (!response.ok) {
+      console.log("Failed to unassign user from the project.");
+
+      throw new Error("Failed to unassign user from the project.");
+    }
+
+    const data = await response.json();
+    console.log(data.message);
+
+    fetchProjects();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// Function to get the selected project's ID
+const getSelectedProjectId = () => {
+  const selectedProject = document.querySelector(
+    ".card.shadow.features-card.active"
+  );
+  return selectedProject ? selectedProject.getAttribute("data-id") : null;
+};
+
+// Function to get the selected user's ID
+const getSelectedUserId = () => {
+  const selectUser = document.getElementById(
+    "select_user"
+  ) as HTMLSelectElement;
+  return selectUser ? selectUser.value : null;
+};
+
+const handleUserSelection = (selectElement: HTMLSelectElement) => {
+  const projectId = selectElement.getAttribute("data-id");
+  const selectedUserId = selectElement.value;
+
+  // console.log(selectElement);
+
+  if (projectId && selectedUserId !== "assign user") {
+    assignUserToProject(projectId, selectedUserId);
+  }
+};
+
+const handleUnassign = (selectElement: HTMLElement) => {
+  const projectId = selectElement.getAttribute("data-id");
+  // console.log(projectId, "clicked");
+
+  try {
+    unassignUserFromProject(projectId!);
+  } catch (error) {
+    console.log(error);
+  }
+};

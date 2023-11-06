@@ -162,7 +162,7 @@ export const assignProject = async (req: Request, res: Response) => {
     //we want a stored procedure that will check if a project has already been assigned to a user
     // if it has, then we want to return an error message
     const procedureName3 = "getAssignedProject";
-    const params = { project_id, user_id };
+    const params = { project_id };
 
     const result = await execute(procedureName3, params);
     if (result.recordset.length > 0)
@@ -184,19 +184,17 @@ export const assignProject = async (req: Request, res: Response) => {
 export const unassignProject = async (req: Request, res: Response) => {
   try {
     const project_id = req.body.project_id;
-    const user_id = req.body.user_id;
+
     // console.log(project_id);
 
     if (!project_id)
       return res.status(400).send({ message: "project Id is required" });
-    if (!user_id)
-      return res.status(400).send({ message: "user Id is required" });
 
     const procedureName3 = "getAssignedProject";
-    const params = { project_id, user_id };
+    const params = { project_id };
 
     const result = await execute(procedureName3, params);
-    // console.log(result.recordset);
+    console.log(result.recordset);
 
     if (result.recordset.length === 0)
       return res.status(400).send({ message: "Project already unassigned" });
@@ -205,7 +203,7 @@ export const unassignProject = async (req: Request, res: Response) => {
 
     const procedureName = "unAssignProject";
     const procedureName2 = "assignProjectStatus";
-    await execute(procedureName, { project_id, user_id });
+    await execute(procedureName, { project_id });
     await execute(procedureName2, { project_id, project_status });
 
     res.status(201).send({ message: "Project unassigned Successfully" });
