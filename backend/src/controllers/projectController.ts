@@ -9,6 +9,7 @@ import {
   validateUpdateProject,
 } from "../validators/projectValidator";
 import { Project } from "../types/projectInterface";
+import { user } from "../types/userInterfaces";
 
 export const createProject = async (req: Request, res: Response) => {
   try {
@@ -159,8 +160,6 @@ export const assignProject = async (req: Request, res: Response) => {
     if (!user_id)
       return res.status(400).send({ message: "user Id is required" });
 
-    //we want a stored procedure that will check if a project has already been assigned to a user
-    // if it has, then we want to return an error message
     const procedureName3 = "getAssignedProject";
     const params = { project_id };
 
@@ -210,5 +209,31 @@ export const unassignProject = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
     res.status(404).send({ message: "internal server error" });
+  }
+};
+
+export const getUserAssignedProject = async (req: Request, res: Response) => {
+  try {
+    const user_id = req.body.user_id;
+    // console.log(user_id);
+
+    if (!user_id)
+      return res.status(400).send({ message: "user Id is required" });
+
+    const procedureName3 = "fetchAssignedProject";
+    const params = { user_id };
+
+    const result = await execute(procedureName3, params);
+
+    // console.log({ project: result.recordset[0] });
+
+    if (result.recordset.length === 0) {
+      res.status(200).json({ project: [] });
+    } else {
+      res.json(result.recordset[0]);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(404).send({ error: "internal server error" });
   }
 };

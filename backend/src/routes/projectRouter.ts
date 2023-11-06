@@ -1,4 +1,5 @@
 import { Router } from "express";
+
 import {
   assignProject,
   completeProject,
@@ -7,6 +8,7 @@ import {
   getAssignedProjects,
   getProject,
   getProjects,
+  getUserAssignedProject,
   unassignProject,
   updateProject,
 } from "../controllers/projectController";
@@ -19,6 +21,7 @@ project_router.put("/", updateProject);
 
 project_router.get("/complete/:project_id", completeProject);
 project_router.get("/complete", createProject);
+project_router.post("/getUserAssignedProjects", getUserAssignedProject);
 project_router.get("/getAssigned", getAssignedProjects);
 project_router.post("/assign", assignProject);
 project_router.post("/unAssign", unassignProject);

@@ -6,3 +6,5 @@ CREATE TABLE AssignedProjects (
 )
 
 drop table AssignedProjects
+
+select * from AssignedProjects
