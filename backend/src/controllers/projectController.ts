@@ -43,6 +43,8 @@ export const updateProject = async (req: Request, res: Response) => {
   try {
     const { project_id, project_name, project_description, dueDate } = req.body;
 
+    // console.log(req.body);
+
     const { error } = validateUpdateProject.validate(req.body);
     if (error)
       return res.status(400).send({ message: "please put correct details" });

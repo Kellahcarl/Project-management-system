@@ -202,12 +202,12 @@ async function deleteProject(project_id: string) {
   }
 }
 
-const updateProject = document.getElementById(
+const createProject = document.getElementById(
   "createProject"
 ) as HTMLButtonElement;
 
-updateProject.addEventListener("click", () => {
-  location.href = "../pages/updateProject.html";
+createProject.addEventListener("click", () => {
+  location.href = "../pages/createProject.html";
 });
 
 const fetchUnassignedUsers = async () => {
@@ -219,7 +219,6 @@ const fetchUnassignedUsers = async () => {
 
   try {
     const response = await fetch("http://localhost:3550/user/unassigned", {
-      
       method: "GET",
       headers: {
         Token: ` ${token}`,
