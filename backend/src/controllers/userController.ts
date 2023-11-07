@@ -52,9 +52,10 @@ export const registerUser = async (req: Request, res: Response) => {
     const { error } = validateRegisterUser.validate(req.body);
 
     if (error)
-      return res
-        .status(400)
-        .send({ error: "please input correct password and email!" });
+      return res.status(400).send({
+        error:
+          "password should be atleast 8 characters long with letters symbols and uppercase",
+      });
 
     const newPassword = await hashPass(password);
 
@@ -98,9 +99,11 @@ export const loginUser = async (req: Request, res: Response) => {
     const { error } = validateLoginUser.validate(req.body);
 
     if (error)
-      return res
-        .status(400)
-        .send({ success: false, error: "incorrect email or password format!" });
+      return res.status(400).send({
+        success: false,
+        error:
+          "password should be atleast 8 characters long <br> with letters symbols and uppercase",
+      });
 
     const result = await execute(procedureName, { email });
     if (result) {
@@ -189,18 +192,16 @@ export const deleteUser = async (req: Request, res: Response) => {
 };
 
 export const getUnAssignedUser = async (req: Request, res: Response) => {
-   try {
-     
-     // console.log(id);
-     
+  try {
+    // console.log(id);
 
-     const procedureName = "getUnassignedUser";
-     const result = await query(`EXEC ${procedureName}`);
+    const procedureName = "getUnassignedUser";
+    const result = await query(`EXEC ${procedureName}`);
 
-     res.json(result.recordset);
-   } catch (error) {
-     console.log(error);
-   }
+    res.json(result.recordset);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const resetPassword = async () => {};

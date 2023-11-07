@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
               setTimeout(() => {
                 ApiMessageBox.style.display = "none";
                 location.href = "../pages/register.html";
-              }, 3000);
+              }, 5000);
 
               reject(data);
             }

@@ -2,6 +2,7 @@ import ejs from "ejs";
 
 import { sendMail } from "../services/email";
 import { query } from "../services/dbconnect";
+import { any } from "joi";
 
 interface User {
   _id: string;
@@ -16,15 +17,16 @@ interface Item {
 }
 
 export const Registration_run = async () => {
-  const items.recordset = await query(
+  const data = await query(
     "SELECT * from dbo.registrationQueue where active = 1"
   );
+  const items = data.recordset;
 
-  for (let item:item of items) {
-    let user = await query(
+  for (let item of items) {
+    let newUser :any [{first :string , email : string}] = await query(
       "SELECT * from dbo.users where _id = '" + item.user_id + "'"
     );
-    user = user[0];
+    newUser[0] = { first , email };
     ejs.renderFile(
       "../templates/registerEmail.ejs",
       { name: user.first, email: user.email, password: "password" },
