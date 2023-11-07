@@ -4,9 +4,7 @@ CREATE TABLE projects (
 	project_status VARCHAR(20) default 'unassigned' ,
 	project_description varchar(250) NOT NULL,
 	dueDate DATE ,
-	created_at TIMESTAMP ,
-	isDeleted BIT NOT NULL DEFAULT 0,
-	isCompleted BIT NOT NULL DEFAULT 0,
+	created_at TIMESTAMP 
 )
 
 drop TABLE projects

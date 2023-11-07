@@ -38,7 +38,7 @@ const displayProjects = (projects: any[]) => {
       const formattedDate = dueDate.toISOString().split("T")[0];
 
       return `
-        <div class="col-12 col-md-6 col-lg-6 ">
+        <div class="col-12 col-md-6 ">
           <div class="card shadow features-card" data-id="${project.project_id}">
             <div class="card-body" style="display: flex; flex-direction: column; align-items: center;">
               <div class="card-title text-center h3 fw-normal mb-3">
@@ -64,8 +64,8 @@ const displayProjects = (projects: any[]) => {
               
               <div style="display: flex; flex-direction: row; gap: 10px; width: 100%; margin-top: 10px;">
                 <select class="form-select btn btn-info" id="select_user_${project.project_id}" aria-label="Default select example" style="flex-grow: 1;" data-id="${project.project_id}" onchange="handleUserSelection(this)">
-                  <option selected>assign user</option>
-                  <option value="1">One</option>
+                   <option selected>assign user</option>
+                  
                   
                 </select>
                 
@@ -226,7 +226,7 @@ const fetchUnassignedUsers = async () => {
     });
 
     if (!response.ok) {
-      console.log("here");
+      // console.log("here");
 
       throw new Error("Failed to fetch unassigned users.");
     }
@@ -245,7 +245,6 @@ const fetchUnassignedUsers = async () => {
       // Check if selectUser exists, then populate it
       if (selectUser) {
         populateUnassignedUsersSelect(data, selectUser);
-        // fetchProjects();
       }
     });
   } catch (error) {
@@ -297,13 +296,18 @@ const assignUserToProject = async (project_id: string, user_id: string) => {
     if (!response.ok) {
       console.log("Failed to assign user to the project.");
       alert("Failed to assign user to the project.");
+      fetchProjects();
+      fetchUsers();
+      fetchUnassignedUsers();
 
       throw new Error("Failed to assign user to the project.");
     } else {
       const data = await response.json();
-      console.log(data.message);
+      // console.log(data.message);
       fetchProjects();
+      fetchUsers();
       fetchUnassignedUsers();
+      alert("user assigned to the project");
     }
   } catch (error) {
     console.error(error);
@@ -330,15 +334,19 @@ const unassignUserFromProject = async (project_id: string) => {
     if (!response.ok) {
       console.log("Failed to unassign user from the project.");
 
-      alert("user already in progress or unassigned from the project.");
+      alert(
+        "project already in progress or  user already unassigned from the project."
+      );
 
       throw new Error("Failed to unassign user from the project.");
     }
 
     const data = await response.json();
-    console.log(data.message);
+    // console.log(data.message);
 
     fetchProjects();
+    fetchUsers();
+    fetchUnassignedUsers();
   } catch (error) {
     console.error(error);
   }
@@ -377,6 +385,9 @@ const handleUnassign = (selectElement: HTMLElement) => {
 
   try {
     unassignUserFromProject(projectId!);
+
+    fetchUnassignedUsers();
+    // alert("user unassigned from the project");
   } catch (error) {
     console.log(error);
   }

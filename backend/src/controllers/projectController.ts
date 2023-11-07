@@ -9,7 +9,6 @@ import {
   validateUpdateProject,
 } from "../validators/projectValidator";
 import { Project } from "../types/projectInterface";
-import { user } from "../types/userInterfaces";
 
 export const createProject = async (req: Request, res: Response) => {
   try {
@@ -213,7 +212,7 @@ export const unassignProject = async (req: Request, res: Response) => {
   try {
     const project_id = req.body.project_id;
 
-    console.log(project_id);
+    // console.log(project_id);
 
     if (!project_id)
       return res.status(400).send({ message: "project Id is required" });
